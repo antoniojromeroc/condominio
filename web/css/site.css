@@ -113,3 +113,35 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+
+.centrado {
+    text-align:center;
+}
+
+.formulario {
+    background-color:#DDDEE3; 
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75); 
+    padding-left: 1em; 
+    padding-top: 1em;
+    border: 1px solid black;
+}
+
+.fondocampo {
+    background-color:#FFFFFF; /* #BCBFD1; */
+    box-shadow: 10px 10px 5px 0px grey; /*rgba(0,0,0,0.75);*/
+    border: 2px solid beige;
+/*    margin: 2px 2px 82px 2px;*/
+/*    padding: 15px 15px 255px 15px;*/
+    margin: auto;
+/*    float: left;
+    font-size: 14px;
+    margin: 2px 2px 2px 2px;
+    border: 1.5px solid rgba(173, 38, 38, 0.541176);
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    color: rgba(0, 0, 0, 1);
+    background: #ecf0f1;
+    transition: all 0.5s ease;
+    animation: neon .2s ease-in-out infinite alternate;*/
+}

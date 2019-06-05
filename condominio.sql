@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 02-06-2019 a las 02:11:14
+-- Tiempo de generación: 04-06-2019 a las 22:59:58
 -- Versión del servidor: 5.7.26-0ubuntu0.18.04.1
 -- Versión de PHP: 7.2.17-0ubuntu0.18.04.1
 
@@ -66,6 +66,14 @@ CREATE TABLE `conceptos` (
   `descripcion` varchar(250) NOT NULL,
   `tipo` enum('INGRESO','EGRESO') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Conceptos de Ingresos o Egresos';
+
+--
+-- Volcado de datos para la tabla `conceptos`
+--
+
+INSERT INTO `conceptos` (`id`, `descripcion`, `tipo`) VALUES
+(1, 'Mensualidad de Condominio', 'INGRESO'),
+(2, 'Gastos de Papeleria', 'EGRESO');
 
 -- --------------------------------------------------------
 
@@ -390,7 +398,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`) VALUES
-(3, 'antoniojromeroc', 'antoniojromeroc@gmail.com', '$2y$12$JStaukkXWiUE/g2T7Q.7DuUH/m10rOLp0yO.JaC7GXTk6Qer3OD4S', 'B-W9DD4iODzh1iZlujTlcJNCopHja12w', 1558566627, NULL, NULL, '127.0.0.1', 1558565668, 1558565668, 0, 1559359858);
+(3, 'antoniojromeroc', 'antoniojromeroc@gmail.com', '$2y$12$JStaukkXWiUE/g2T7Q.7DuUH/m10rOLp0yO.JaC7GXTk6Qer3OD4S', 'B-W9DD4iODzh1iZlujTlcJNCopHja12w', 1558566627, NULL, NULL, '127.0.0.1', 1558565668, 1558565668, 0, 1559697582);
 
 -- --------------------------------------------------------
 
@@ -684,7 +692,7 @@ ALTER TABLE `bancos`
 -- AUTO_INCREMENT de la tabla `conceptos`
 --
 ALTER TABLE `conceptos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `cuentavivienda_pagosvivienda`
 --

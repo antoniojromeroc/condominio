@@ -70,4 +70,13 @@ class Ingresosegresos extends \yii\db\ActiveRecord
     {
         return new IngresosegresosQuery(get_called_class());
     }
+
+    public function getYearsList() {
+        $currentYear = date('Y');
+        $yearFrom = 2013;
+        //$yearsRange = range($yearFrom, $currentYear);
+        $yearsRange = range($currentYear, $yearFrom);
+        return array_combine($yearsRange, $yearsRange);
+    }
+
 }

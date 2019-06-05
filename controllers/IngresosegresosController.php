@@ -8,6 +8,8 @@ use app\models\IngresosegresosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Saldosmensuales;
+use app\models\SaldosmensualesSearch;
 
 /**
  * IngresosegresosController implements the CRUD actions for Ingresosegresos model.
@@ -35,12 +37,20 @@ class IngresosegresosController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new IngresosegresosSearch();
+        $searchModel = new SaldosmensualesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $model = new Ingresosegresos();
+        $modelSaldosmensuales = new Saldosmensuales();
+
+        // $searchModel = new IngresosegresosSearch();
+        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model' => $model,
+            'modelSaldosmensuales' => $modelSaldosmensuales,
         ]);
     }
 

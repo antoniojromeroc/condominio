@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"mod",
+				"modelSaldosmensuales"
+			],
+			[
+				"Sal",
+				"Saldosmensuales"
+			],
+			[
+				"Saldos",
+				"SaldosmensualesSearch"
+			],
+			[
+				"model",
+				"models"
+			],
+			[
+				"mode",
+				"ifx_blobinfile_mode"
+			],
+			[
 				"Res",
 				"responsable_vivienda"
 			],
@@ -14,10 +34,6 @@
 			[
 				"primer",
 				"primer_nombre"
-			],
-			[
-				"model",
-				"models"
 			],
 			[
 				"In",
@@ -148,37 +164,37 @@
 			}
 		},
 		{
-			"file": "models/Viviendas.php",
+			"file": "controllers/IngresosegresosController.php",
 			"settings":
 			{
-				"buffer_size": 2854,
+				"buffer_size": 3784,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "messages/es/app.php",
+			"file": "models/Ingresosegresos.php",
 			"settings":
 			{
-				"buffer_size": 4642,
+				"buffer_size": 1988,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "vendor/yiisoft/yii2/messages/es/user.php",
+			"file": "views/ingresosegresos/index.php",
 			"settings":
 			{
-				"buffer_size": 8209,
+				"buffer_size": 2985,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "vendor/dektrium/yii2-user/messages/es/user.php",
+			"file": "web/css/site.css",
 			"settings":
 			{
-				"buffer_size": 12852,
+				"buffer_size": 2622,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -263,17 +279,27 @@
 	[
 		"/var/www/html/condominio",
 		"/var/www/html/condominio/controllers",
-		"/var/www/html/condominio/models"
+		"/var/www/html/condominio/models",
+		"/var/www/html/condominio/views",
+		"/var/www/html/condominio/views/ingresosegresos",
+		"/var/www/html/condominio/views/personas",
+		"/var/www/html/condominio/views/saldosmensuales",
+		"/var/www/html/condominio/web",
+		"/var/www/html/condominio/web/css"
 	],
 	"file_history":
 	[
+		"/var/www/html/condominio/web/css/otrosestilos.css",
+		"/var/www/html/condominio/views/personas/_form.php",
+		"/var/www/html/condominio/models/Viviendas.php",
+		"/var/www/html/condominio/messages/es/app.php",
+		"/var/www/html/condominio/vendor/dektrium/yii2-user/messages/es/user.php",
+		"/var/www/html/condominio/vendor/yiisoft/yii2/messages/es/user.php",
 		"/var/www/html/condominio/views/viviendas/update.php",
 		"/var/www/html/condominio/views/viviendas/create.php",
 		"/var/www/html/condominio/models/Model.php",
 		"/var/www/html/condominio/models/Personas.php",
 		"/var/www/html/condominio/views/personas/create.php",
-		"/var/www/html/condominio/views/personas/_form.php",
-		"/var/www/html/condominio/models/Viviendas.php",
 		"/var/www/html/condominio/views/operacion/index.php",
 		"/var/www/html/condominio/views/ingresosegresos/index.php",
 		"/var/www/html/condominio/views/historicomensualidad/index.php",
@@ -362,7 +388,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 6,
 			"sheets":
 			[
 				{
@@ -440,22 +466,22 @@
 						"selection":
 						[
 							[
-								5370,
-								5370
+								1241,
+								1241
 							]
 						],
 						"settings":
 						{
-							"git_gutter_is_enabled": false,
+							"git_gutter_is_enabled": true,
 							"syntax": "Packages/PHP/PHP.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1404.0,
+						"translation.y": 204.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -477,13 +503,13 @@
 						],
 						"settings":
 						{
-							"git_gutter_is_enabled": false,
+							"git_gutter_is_enabled": true,
 							"syntax": "Packages/PHP/PHP.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1931.0,
+						"translation.y": 1064.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
@@ -491,30 +517,30 @@
 				},
 				{
 					"buffer": 4,
-					"file": "models/Viviendas.php",
+					"file": "controllers/IngresosegresosController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2854,
+						"buffer_size": 3784,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2434,
-								2434
+								1414,
+								1414
 							]
 						],
 						"settings":
 						{
-							"git_gutter_is_enabled": false,
+							"git_gutter_is_enabled": true,
 							"syntax": "Packages/PHP/PHP.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 867.0,
+						"translation.y": 153.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
@@ -522,95 +548,95 @@
 				},
 				{
 					"buffer": 5,
-					"file": "messages/es/app.php",
+					"file": "models/Ingresosegresos.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4642,
+						"buffer_size": 1988,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3361,
-								3361
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": false,
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 551.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "vendor/yiisoft/yii2/messages/es/user.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8209,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5731,
-								5731
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": false,
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 238.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "vendor/dektrium/yii2-user/messages/es/user.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 12852,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6032,
-								6032
+								1911,
+								1911
 							]
 						],
 						"settings":
 						{
 							"git_gutter_is_enabled": true,
 							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 2,
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 194.0,
+						"translation.y": 663.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "views/ingresosegresos/index.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2985,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								828,
+								828
+							]
+						],
+						"settings":
+						{
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 204.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "web/css/site.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2622,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2621,
+								2621
+							]
+						],
+						"settings":
+						{
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1727.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
