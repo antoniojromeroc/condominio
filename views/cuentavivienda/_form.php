@@ -16,6 +16,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'viviendas_id')->textInput() ?>
 
+    <?= $form->field($model, 'tipoobligaciones_id')->textInput() ?>
+
     <?= $form->field($model, 'descripcion')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'mes')->textInput() ?>

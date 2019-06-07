@@ -17,7 +17,7 @@ class CuentaviviendaSearch extends Cuentavivienda
     public function rules()
     {
         return [
-            [['id', 'viviendas_id', 'mes', 'anio'], 'integer'],
+            [['id', 'viviendas_id', 'tipoobligaciones_id', 'mes', 'anio'], 'integer'],
             [['descripcion', 'fecha_vencimiento'], 'safe'],
             [['monto', 'monto_faltante'], 'number'],
         ];
@@ -61,6 +61,7 @@ class CuentaviviendaSearch extends Cuentavivienda
         $query->andFilterWhere([
             'id' => $this->id,
             'viviendas_id' => $this->viviendas_id,
+            'tipoobligaciones_id' => $this->tipoobligaciones_id,
             'mes' => $this->mes,
             'anio' => $this->anio,
             'monto' => $this->monto,

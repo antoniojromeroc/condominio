@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 04-06-2019 a las 22:59:58
+-- Tiempo de generación: 06-06-2019 a las 23:51:22
 -- Versión del servidor: 5.7.26-0ubuntu0.18.04.1
 -- Versión de PHP: 7.2.17-0ubuntu0.18.04.1
 
@@ -58,6 +58,17 @@ INSERT INTO `bancos` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `cargos`
+--
+
+CREATE TABLE `cargos` (
+  `id` int(11) NOT NULL,
+  `descripcion` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `conceptos`
 --
 
@@ -84,6 +95,7 @@ INSERT INTO `conceptos` (`id`, `descripcion`, `tipo`) VALUES
 CREATE TABLE `cuentavivienda` (
   `id` int(11) NOT NULL,
   `viviendas_id` int(11) NOT NULL,
+  `tipoobligaciones_id` int(11) DEFAULT NULL,
   `descripcion` varchar(250) NOT NULL,
   `mes` int(2) NOT NULL,
   `anio` int(4) NOT NULL,
@@ -104,6 +116,19 @@ CREATE TABLE `cuentavivienda_pagosvivienda` (
   `pagosvivienda_id` int(11) NOT NULL,
   `montopagado` decimal(20,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de vinculación de cuentas y pagos de las viviendas ';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `directiva`
+--
+
+CREATE TABLE `directiva` (
+  `id` int(11) NOT NULL,
+  `descripcion` varchar(250) NOT NULL,
+  `fecha_ini` date DEFAULT NULL,
+  `fecha_fin` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Directiva de Junta de Condominio';
 
 -- --------------------------------------------------------
 
@@ -133,14 +158,15 @@ INSERT INTO `empresas` (`id`, `rif`, `razon_social`, `telefono`, `direccion`, `r
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `historicomensualidad`
+-- Estructura de tabla para la tabla `historicoobligaciones`
 --
 
-CREATE TABLE `historicomensualidad` (
+CREATE TABLE `historicoobligaciones` (
   `id` int(11) NOT NULL,
   `fecha` date NOT NULL,
+  `tipoobligaciones_id` int(11) NOT NULL,
   `monto` decimal(20,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Guarda El costo del servicio de condominio por mes';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Guarda el monto de las obligaciones que se han generado en el tiempo';
 
 -- --------------------------------------------------------
 
@@ -155,6 +181,55 @@ CREATE TABLE `ingresosegresos` (
   `fecha` date NOT NULL,
   `monto` decimal(20,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Relación de Ingresos y Egresos';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `juntacondominio`
+--
+
+CREATE TABLE `juntacondominio` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(250) NOT NULL,
+  `direccion` varchar(250) NOT NULL,
+  `urbanizacion` varchar(150) DEFAULT NULL,
+  `telefono1` varchar(15) DEFAULT NULL,
+  `telefono2` varchar(15) DEFAULT NULL,
+  `telefono3` varchar(15) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Junta de Condominio';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `miembros`
+--
+
+CREATE TABLE `miembros` (
+  `id` int(11) NOT NULL,
+  `cedula_identidad` varchar(15) NOT NULL,
+  `nacionalidad` char(1) DEFAULT NULL,
+  `primer_apellido` varchar(50) NOT NULL,
+  `segundo_apellido` varchar(50) DEFAULT NULL,
+  `primer_nombre` varchar(50) NOT NULL,
+  `segundo_nombre` varchar(50) DEFAULT NULL,
+  `sexo` varchar(50) NOT NULL,
+  `celular` varchar(50) DEFAULT NULL,
+  `telefono_local` varchar(50) DEFAULT NULL,
+  `email` varchar(250) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Habitantes de las viviendas';
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `miembrosdirectiva`
+--
+
+CREATE TABLE `miembrosdirectiva` (
+  `id` int(11) NOT NULL,
+  `directiva_id` int(11) NOT NULL,
+  `miembros_id` int(11) NOT NULL,
+  `cargos_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Miembros que conforman la Junta Directiva';
 
 -- --------------------------------------------------------
 
@@ -361,6 +436,17 @@ CREATE TABLE `social_account` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tipoobligaciones`
+--
+
+CREATE TABLE `tipoobligaciones` (
+  `id` int(11) NOT NULL,
+  `descripcion` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `token`
 --
 
@@ -511,6 +597,12 @@ ALTER TABLE `bancos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `cargos`
+--
+ALTER TABLE `cargos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `conceptos`
 --
 ALTER TABLE `conceptos`
@@ -521,7 +613,8 @@ ALTER TABLE `conceptos`
 --
 ALTER TABLE `cuentavivienda`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_cuentasviviendas_viviendas` (`viviendas_id`);
+  ADD KEY `fk_cuentasviviendas_viviendas` (`viviendas_id`),
+  ADD KEY `fk_cuentaviviendas_tipoobligaciones` (`tipoobligaciones_id`);
 
 --
 -- Indices de la tabla `cuentavivienda_pagosvivienda`
@@ -532,16 +625,23 @@ ALTER TABLE `cuentavivienda_pagosvivienda`
   ADD KEY `fk_cuentaviviendas_pagosvivienda_pv` (`pagosvivienda_id`);
 
 --
+-- Indices de la tabla `directiva`
+--
+ALTER TABLE `directiva`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `empresas`
 --
 ALTER TABLE `empresas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `historicomensualidad`
+-- Indices de la tabla `historicoobligaciones`
 --
-ALTER TABLE `historicomensualidad`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `historicoobligaciones`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_historicoobligaciones_tipoobligaciones` (`tipoobligaciones_id`);
 
 --
 -- Indices de la tabla `ingresosegresos`
@@ -549,6 +649,27 @@ ALTER TABLE `historicomensualidad`
 ALTER TABLE `ingresosegresos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_ingresosegresos_conceptos` (`conceptos_id`);
+
+--
+-- Indices de la tabla `juntacondominio`
+--
+ALTER TABLE `juntacondominio`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `miembros`
+--
+ALTER TABLE `miembros`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `miembrosdirectiva`
+--
+ALTER TABLE `miembrosdirectiva`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_miembrosdirectiva_directiva` (`directiva_id`),
+  ADD KEY `fk_miembrosdirectiva_miembros` (`miembros_id`),
+  ADD KEY `fk_miembrosdirectiva_cargos` (`cargos_id`);
 
 --
 -- Indices de la tabla `migration`
@@ -628,6 +749,12 @@ ALTER TABLE `social_account`
   ADD KEY `fk_user_account` (`user_id`);
 
 --
+-- Indices de la tabla `tipoobligaciones`
+--
+ALTER TABLE `tipoobligaciones`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `token`
 --
 ALTER TABLE `token`
@@ -689,6 +816,11 @@ ALTER TABLE `autos`
 ALTER TABLE `bancos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT de la tabla `cargos`
+--
+ALTER TABLE `cargos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `conceptos`
 --
 ALTER TABLE `conceptos`
@@ -699,19 +831,39 @@ ALTER TABLE `conceptos`
 ALTER TABLE `cuentavivienda_pagosvivienda`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT de la tabla `directiva`
+--
+ALTER TABLE `directiva`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `empresas`
 --
 ALTER TABLE `empresas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT de la tabla `historicomensualidad`
+-- AUTO_INCREMENT de la tabla `historicoobligaciones`
 --
-ALTER TABLE `historicomensualidad`
+ALTER TABLE `historicoobligaciones`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `ingresosegresos`
 --
 ALTER TABLE `ingresosegresos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `juntacondominio`
+--
+ALTER TABLE `juntacondominio`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `miembros`
+--
+ALTER TABLE `miembros`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `miembrosdirectiva`
+--
+ALTER TABLE `miembrosdirectiva`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `operacion`
@@ -754,6 +906,11 @@ ALTER TABLE `saldosmensuales`
 ALTER TABLE `social_account`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT de la tabla `tipoobligaciones`
+--
+ALTER TABLE `tipoobligaciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
@@ -792,7 +949,8 @@ ALTER TABLE `autos`
 -- Filtros para la tabla `cuentavivienda`
 --
 ALTER TABLE `cuentavivienda`
-  ADD CONSTRAINT `fk_cuentasviviendas_viviendas` FOREIGN KEY (`viviendas_id`) REFERENCES `viviendas` (`id`);
+  ADD CONSTRAINT `fk_cuentasviviendas_viviendas` FOREIGN KEY (`viviendas_id`) REFERENCES `viviendas` (`id`),
+  ADD CONSTRAINT `fk_cuentaviviendas_tipoobligaciones` FOREIGN KEY (`tipoobligaciones_id`) REFERENCES `tipoobligaciones` (`id`);
 
 --
 -- Filtros para la tabla `cuentavivienda_pagosvivienda`
@@ -802,10 +960,24 @@ ALTER TABLE `cuentavivienda_pagosvivienda`
   ADD CONSTRAINT `fk_cuentaviviendas_pagosvivienda_pv` FOREIGN KEY (`pagosvivienda_id`) REFERENCES `pagosvivienda` (`id`);
 
 --
+-- Filtros para la tabla `historicoobligaciones`
+--
+ALTER TABLE `historicoobligaciones`
+  ADD CONSTRAINT `fk_historicoobligaciones_tipoobligaciones` FOREIGN KEY (`tipoobligaciones_id`) REFERENCES `tipoobligaciones` (`id`);
+
+--
 -- Filtros para la tabla `ingresosegresos`
 --
 ALTER TABLE `ingresosegresos`
   ADD CONSTRAINT `fk_ingresosegresos_conceptos` FOREIGN KEY (`conceptos_id`) REFERENCES `conceptos` (`id`);
+
+--
+-- Filtros para la tabla `miembrosdirectiva`
+--
+ALTER TABLE `miembrosdirectiva`
+  ADD CONSTRAINT `fk_miembrosdirectiva_cargos` FOREIGN KEY (`cargos_id`) REFERENCES `cargos` (`id`),
+  ADD CONSTRAINT `fk_miembrosdirectiva_directiva` FOREIGN KEY (`directiva_id`) REFERENCES `directiva` (`id`),
+  ADD CONSTRAINT `fk_miembrosdirectiva_miembros` FOREIGN KEY (`miembros_id`) REFERENCES `miembros` (`id`);
 
 --
 -- Filtros para la tabla `pagosvivienda`

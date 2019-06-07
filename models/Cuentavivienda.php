@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property int $viviendas_id
+ * @property int $tipoobligaciones_id
  * @property string $descripcion
  * @property int $mes
  * @property int $anio
@@ -17,6 +18,7 @@ use Yii;
  * @property string $monto_faltante
  *
  * @property Viviendas $viviendas
+ * @property Tipoobligaciones $tipoobligaciones
  * @property CuentaviviendaPagosvivienda[] $cuentaviviendaPagosviviendas
  */
 class Cuentavivienda extends \yii\db\ActiveRecord
@@ -36,12 +38,13 @@ class Cuentavivienda extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'viviendas_id', 'descripcion', 'mes', 'anio', 'monto'], 'required'],
-            [['id', 'viviendas_id', 'mes', 'anio'], 'integer'],
+            [['id', 'viviendas_id', 'tipoobligaciones_id', 'mes', 'anio'], 'integer'],
             [['monto', 'monto_faltante'], 'number'],
             [['fecha_vencimiento'], 'safe'],
             [['descripcion'], 'string', 'max' => 250],
             [['id'], 'unique'],
             [['viviendas_id'], 'exist', 'skipOnError' => true, 'targetClass' => Viviendas::className(), 'targetAttribute' => ['viviendas_id' => 'id']],
+            [['tipoobligaciones_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tipoobligaciones::className(), 'targetAttribute' => ['tipoobligaciones_id' => 'id']],
         ];
     }
 
@@ -53,6 +56,7 @@ class Cuentavivienda extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'viviendas_id' => Yii::t('app', 'Viviendas ID'),
+            'tipoobligaciones_id' => Yii::t('app', 'Tipoobligaciones ID'),
             'descripcion' => Yii::t('app', 'Descripcion'),
             'mes' => Yii::t('app', 'Mes'),
             'anio' => Yii::t('app', 'Anio'),
@@ -68,6 +72,14 @@ class Cuentavivienda extends \yii\db\ActiveRecord
     public function getViviendas()
     {
         return $this->hasOne(Viviendas::className(), ['id' => 'viviendas_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTipoobligaciones()
+    {
+        return $this->hasOne(Tipoobligaciones::className(), ['id' => 'tipoobligaciones_id']);
     }
 
     /**

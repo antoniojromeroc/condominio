@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'viviendas_id',
+            'tipoobligaciones_id',
             'descripcion',
             'mes',
             'anio',

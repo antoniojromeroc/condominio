@@ -22,11 +22,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'viviendas_id') ?>
 
+    <?= $form->field($model, 'tipoobligaciones_id') ?>
+
     <?= $form->field($model, 'descripcion') ?>
 
     <?= $form->field($model, 'mes') ?>
 
-    <?= $form->field($model, 'anio') ?>
+    <?php // echo $form->field($model, 'anio') ?>
 
     <?php // echo $form->field($model, 'monto') ?>
 

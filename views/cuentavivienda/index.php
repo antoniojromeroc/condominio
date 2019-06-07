@@ -27,11 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            // 'id',
+            'id',
             'viviendas_id',
+            'tipoobligaciones_id',
             'descripcion',
             'mes',
-            'anio',
+            //'anio',
             //'monto',
             //'fecha_vencimiento',
             //'monto_faltante',
