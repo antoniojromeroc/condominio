@@ -72,7 +72,7 @@ class IngresosegresosController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($idSM)
     {
         $model = new Ingresosegresos();
 
@@ -82,7 +82,32 @@ class IngresosegresosController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'idSM' => $idSM,
         ]);
+    }
+
+    /**
+     * Incluir un registro en el modelo Saldos Mensuales.
+     * 
+     * 
+     */
+    public function actionIncluirSmensuales()
+    {
+        // return true;
+
+        // print_r(Yii::$app->request->post());
+        // // Yii::$app->session->setFlash('error', 'Alerta. Entrando en la accion Incluir Saldos Mensuales'.Yii::$app->request->post()); 
+        // return false;
+        $model = new Saldosmensuales();
+
+         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['create', 'idSM' => $model->id]);
+        }
+
+        // return $this->render('create', [
+        //     'model' => $model,
+        // ]);
     }
 
     /**

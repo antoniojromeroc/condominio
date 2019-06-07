@@ -33,6 +33,7 @@ class Saldosmensuales extends \yii\db\ActiveRecord
             [['anio', 'mes'], 'required'],
             [['anio', 'mes'], 'integer'],
             [['monto_ingresos', 'monto_egresos', 'saldo'], 'number'],
+            [['anio', 'mes'], 'unique', 'targetAttribute' => ['anio', 'mes'], 'targetClass' => '\app\models\Saldosmensuales', 'message' => 'El Peridodo de Año y Mes ya existe.'],
         ];
     }
 
