@@ -93,21 +93,16 @@ class IngresosegresosController extends Controller
      */
     public function actionIncluirSmensuales()
     {
-        // return true;
-
-        // print_r(Yii::$app->request->post());
-        // // Yii::$app->session->setFlash('error', 'Alerta. Entrando en la accion Incluir Saldos Mensuales'.Yii::$app->request->post()); 
-        // return false;
         $model = new Saldosmensuales();
 
-         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            // return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['create', 'idSM' => $model->id]);
+        } else {
+            if($model::buscaunico($model,'anio', 'mes',$model->anio, $model->mes)){
+                Yii::$app->session->setFlash('error', 'Alerta. El periodo ya existe. Intente con otro rando de año y mes.'); 
+            }
+            return $this->redirect(['index']);
         }
-
-        // return $this->render('create', [
-        //     'model' => $model,
-        // ]);
     }
 
     /**
@@ -120,13 +115,24 @@ class IngresosegresosController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelNuevoIE = new Ingresosegresos;
+        $modelIngresosegresos = $this->findIngresosegresos($model->anio, $model->mes);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($modelNuevoIE->load(Yii::$app->request->post())) {
+            print_r(Yii::$app->request->post());
+            die();
+                // $modelSueldos->relacion_id = $id;
+                // $modelSueldos->save();
+                // $modelSueldos = new Sueldos();
         }
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //     return $this->redirect(['view', 'id' => $model->id]);
+        // }
 
         return $this->render('update', [
             'model' => $model,
+            'modelNuevoIE' => $modelNuevoIE,
+            'modelIngresosegresos' => $modelIngresosegresos,
         ]);
     }
 
@@ -153,10 +159,26 @@ class IngresosegresosController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Ingresosegresos::findOne($id)) !== null) {
+        //if (($model = Ingresosegresos::findOne($id)) !== null) {
+        if (($model = Saldosmensuales::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    protected function findIngresosegresos($anio, $mes)
+    {
+        $model = Ingresosegresos::find()->where(['year('.("fecha").')' => $anio, 'month('.("fecha").')' => $mes])->all();
+        // print_r($model);
+        // return false;
+        return $model;
+        // if (($model = Ingresosegresos::find()->where(YEAR("fecha") = $anio AND MONTH("fecha") = $mes)->all()) !== null) {
+        //     // ->bindValue(':your_date_input1', $your_date_input)
+        //     // ->bindValue(':your_date_input2', $your_date_input)
+        //     return $model;
+        // } else {
+        //     throw new NotFoundHttpException('The requested page does not exist.');
+        // }
     }
 }

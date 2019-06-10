@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use yii\helpers\ArrayHelper;
+
 /**
  * This is the model class for table "ingresosegresos".
  *
@@ -77,6 +79,15 @@ class Ingresosegresos extends \yii\db\ActiveRecord
         //$yearsRange = range($yearFrom, $currentYear);
         $yearsRange = range($currentYear, $yearFrom);
         return array_combine($yearsRange, $yearsRange);
+    }
+
+    /**
+     * Permite carga de dropdownList
+     */    
+    public static function getListaConceptos()
+    {
+        $opciones = Conceptos::find()->asArray()->all();
+        return ArrayHelper::map($opciones, 'id', 'descripcion', 'tipo');
     }
 
 }

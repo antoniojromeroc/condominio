@@ -33,7 +33,8 @@ class Saldosmensuales extends \yii\db\ActiveRecord
             [['anio', 'mes'], 'required'],
             [['anio', 'mes'], 'integer'],
             [['monto_ingresos', 'monto_egresos', 'saldo'], 'number'],
-            [['anio', 'mes'], 'unique', 'targetAttribute' => ['anio', 'mes'], 'targetClass' => '\app\models\Saldosmensuales', 'message' => 'El Peridodo de Año y Mes ya existe.'],
+            [['anio', 'mes'], 'unique', 'targetAttribute' => ['anio', 'mes']],
+            //, 'message' => 'El Peridodo de Año y Mes ya existe.'],
         ];
     }
 
@@ -59,5 +60,19 @@ class Saldosmensuales extends \yii\db\ActiveRecord
     public static function find()
     {
         return new SaldosmensualesQuery(get_called_class());
+    }
+
+    /**
+     * Busqueda de registro unico para validacion
+     * 
+     */
+    public static function buscaunico($tabla, $campo1, $campo2 = false, $valor1, $valor2 = false)
+    {
+        if ($campo2) {
+            if($tabla::find()->where([ $campo1 => $valor1, $campo2 => $valor2])->one()) return true;
+        } else {
+            if($tabla::find()->where([ $campo1 => $valor1])->one()) return true;
+        }
+        return false;
     }
 }

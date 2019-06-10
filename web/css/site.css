@@ -145,3 +145,34 @@ a.desc:after {
     transition: all 0.5s ease;
     animation: neon .2s ease-in-out infinite alternate;*/
 }
+
+.lineaazul {
+    background-color:#3B3BDF; /* #BCBFD1; */
+/*    box-shadow: 10px 10px 5px 0px grey; rgba(0,0,0,0.75);*/
+    border: 1px solid #3B3BDF;
+    margin: 6px 0px 0px 0px;
+/*    padding: 5px 5p 2px 5px;*/
+/*    margin: auto;*/
+}
+.campo {
+    background-color:#E7E6EE; 
+    border: 1px solid black;
+}
+
+/*  PARA FIREFOX */
+.divprincipal {
+    float:left; 
+    border-style:none; 
+    border-width:0; 
+    background-color:white;    
+}
+
+.divsombra {
+    border-radius: 20px; 
+    box-shadow: 8px 8px 10px 0;
+}
+
+.fondoCabecera {
+    background-color: #434242;    
+    color: white;
+}
