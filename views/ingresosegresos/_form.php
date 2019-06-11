@@ -91,16 +91,16 @@ use yii\bootstrap\Button;
                                 ]) ?>
                     </div>
                     <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">
-                    	<?= $form->field($modelNuevoIE, 'fecha')->textInput();
-                               // ->widget(DatePicker::className(),[
-                               //      'dateFormat' => 'yyyy-MM-dd',
-                               //      'clientOptions' => [
-                               //          'yearRange' => '-115:+0',
-                               //          'changeMonth' => true,
-                               //          'changeYear' => true
-                               //      ],
-                               //      'options' => ['class' => 'form-control', 'style' => 'width:100%'] 
-                                // ]) ?>
+                    	<?= $form->field($modelNuevoIE, 'fecha')
+                               ->widget(DatePicker::className(),[
+                                    'dateFormat' => 'yyyy-MM-dd',
+                                    'clientOptions' => [
+                                        'yearRange' => '-115:+0',
+                                        'changeMonth' => true,
+                                        'changeYear' => true
+                                    ],
+                                    'options' => ['class' => 'form-control', 'style' => 'width:100%'] 
+                                ]) ?>
                     </div>
                     <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">
                         <?= $form->field($modelNuevoIE, 'monto')->textInput([
@@ -125,28 +125,54 @@ use yii\bootstrap\Button;
                         'validateOnSubmit' => true,
                         'action' => Yii::$app->request->baseUrl."/index.php?r=sueldos%2Factualizar&id=".$model->id
                     ]); 
-                     echo '<div style="display:none;">';
+                     //echo '<div style="display:none;">';
 					?>
                     <div class="col-xs-12 col-sm-8 col-md-9 col-lg-3"></div>
                 	<div class="col-xs-12 col-sm-8 col-md-9 col-lg-6">
 	                    <h2>Ingresos y Egresos</h2>
     	            </div>
-        	        <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"></div>
-                                        
+        	        <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"></div>                                     
 
-	<?php
-    	foreach ($modelIngresosegresos as $grupo){   
-    		echo $form->field($grupo, "[$grupo->id]conceptos_id")->textInput();
-
-			echo $form->field($grupo, "[$grupo->id]descripcion")->textInput(['maxlength' => true]);
-
-    		echo $form->field($grupo, "[$grupo->id]fecha")->textInput();
-
-    		echo $form->field($grupo, "[$grupo->id]monto")->textInput(['maxlength' => true]);
-		}
-	?>
+					<?php
+				    	foreach ($modelIngresosegresos as $grupo){  
+				    		//echo '<div class="col-xs-12 col-sm-8 col-md-9 col-lg-3"></div>';
+				            echo '<div class="col-xs-12 col-sm-8 col-md-9 col-lg-3">';
+				    		echo $form->field($grupo, "[$grupo->id]conceptos_id")
+				    				->dropDownList($modelNuevoIE->listaConceptos, 
+						            	['prompt' => 'Seleccione Uno', 'style'=>'width:100%']);
+				    		echo '</div>';
+				            echo '<div class="col-xs-12 col-sm-8 col-md-9 col-lg-3">';
+							echo $form->field($grupo, "[$grupo->id]descripcion")->textInput(['maxlength' => true]);
+				    		echo '</div>';
+				            echo '<div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">';
+				    		echo $form->field($grupo, "[$grupo->id]fecha")
+					    		->widget(DatePicker::className(),[
+	                                    'dateFormat' => 'yyyy-MM-dd',
+	                                    'clientOptions' => [
+	                                        'yearRange' => '-115:+0',
+	                                        'changeMonth' => true,
+	                                        'changeYear' => true
+	                                    ],
+	                                    'options' => ['class' => 'form-control', 'style' => 'width:100%'] 
+	                                ]);
+				    		echo '</div>';
+				            echo '<div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">';
+				    		echo $form->field($grupo, "[$grupo->id]monto")->textInput(['maxlength' => true]);
+				    		echo '</div>';
+				            //echo '<div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">';
+				            echo '<div class="col-xs-12 col-sm-8 col-md-9 col-lg-2"><br>';
+                        	echo Html::a('Eliminar', ['/ingresosegresos/eliminar', 'id' => $grupo->id, 'idSM' => $model['id']], ['class'=>'btn btn-danger grid-button',
+                                    'data' => [
+                                    'confirm' => 'Está seguro de Eliminar este registro?',
+                                    'method' => 'post',
+                                ]]);
+                        	echo '</div>';
+						}
+					?>
+					<div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br /></div>
 
                 </div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br><br></div>
             </div>
         </div>
     </div>

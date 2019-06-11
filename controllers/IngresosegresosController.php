@@ -119,11 +119,11 @@ class IngresosegresosController extends Controller
         $modelIngresosegresos = $this->findIngresosegresos($model->anio, $model->mes);
 
         if ($modelNuevoIE->load(Yii::$app->request->post())) {
-            print_r(Yii::$app->request->post());
-            die();
+            // print_r(Yii::$app->request->post());
+            // die();
                 // $modelSueldos->relacion_id = $id;
-                // $modelSueldos->save();
-                // $modelSueldos = new Sueldos();
+                $modelNuevoIE->save();
+                $modelNuevoIE = new Ingresosegresos();
         }
         // if ($model->load(Yii::$app->request->post()) && $model->save()) {
         //     return $this->redirect(['view', 'id' => $model->id]);
@@ -148,6 +148,17 @@ class IngresosegresosController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionEliminar($id, $idSM)
+    {
+        Ingresosegresos::findOne($id)->delete();
+        
+        // $modelNuevoIE = new Ingresosegresos();
+        // $model = $this->findRelacion($idRelacion);
+        // $modelSueldosRelacion = $this->findModel($model->id);
+
+        return $this->redirect(['update', 'id' => $idSM]);
     }
 
     /**
