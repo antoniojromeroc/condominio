@@ -116,19 +116,13 @@ class IngresosegresosController extends Controller
     {
         $model = $this->findModel($id);
         $modelNuevoIE = new Ingresosegresos;
-        $modelIngresosegresos = $this->findIngresosegresos($model->anio, $model->mes);
 
         if ($modelNuevoIE->load(Yii::$app->request->post())) {
-            // print_r(Yii::$app->request->post());
-            // die();
-                // $modelSueldos->relacion_id = $id;
-                $modelNuevoIE->save();
-                $modelNuevoIE = new Ingresosegresos();
+            $modelNuevoIE->save();
+            $modelNuevoIE = new Ingresosegresos();
         }
-        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
-        //     return $this->redirect(['view', 'id' => $model->id]);
-        // }
 
+        $modelIngresosegresos = $this->findIngresosegresos($model->anio, $model->mes);
         return $this->render('update', [
             'model' => $model,
             'modelNuevoIE' => $modelNuevoIE,

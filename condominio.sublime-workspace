@@ -4,20 +4,24 @@
 		"selected_items":
 		[
 			[
+				"month",
+				"monthRange"
+			],
+			[
+				"mode",
+				"model"
+			],
+			[
+				"mo",
+				"models"
+			],
+			[
 				"con",
 				"conceptos"
 			],
 			[
 				"te",
 				"textInput"
-			],
-			[
-				"mo",
-				"modelNuevoIE"
-			],
-			[
-				"mode",
-				"modelNuevoIE"
 			],
 			[
 				"mon",
@@ -212,18 +216,28 @@
 			"file": "controllers/IngresosegresosController.php",
 			"settings":
 			{
-				"buffer_size": 5729,
+				"buffer_size": 5790,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "views/ingresosegresos/update.php",
+			"file": "views/ingresosegresos/_form.php",
 			"settings":
 			{
-				"buffer_size": 721,
+				"buffer_size": 11298,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 24 files for \"yearRange\"\n\n0 matches",
+			"settings":
+			{
+				"buffer_size": 45,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
 			}
 		},
 		{
@@ -249,15 +263,6 @@
 			"settings":
 			{
 				"buffer_size": 3682,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "views/ingresosegresos/_form.php",
-			"settings":
-			{
-				"buffer_size": 8334,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -437,6 +442,8 @@
 		"height": 101.0,
 		"where_history":
 		[
+			"/var/www/html/condominio/vendor/yiisoft/yii2-jui",
+			"/var/www/html/condominio/vendor",
 			""
 		]
 	},
@@ -445,6 +452,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"yearRange",
 			"save",
 			"telefono",
 			"sign in",
@@ -472,7 +480,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -512,15 +520,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5729,
+						"buffer_size": 5790,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3522,
-								3522
+								3464,
+								3464
 							]
 						],
 						"settings":
@@ -531,27 +539,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1537.0,
+						"translation.y": 1826.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "views/ingresosegresos/update.php",
+					"file": "views/ingresosegresos/_form.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 721,
+						"buffer_size": 11298,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								630,
-								630
+								5809,
+								5809
 							]
 						],
 						"settings":
@@ -560,14 +568,50 @@
 							"syntax": "Packages/PHP/PHP.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1428.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 45,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"default_dir": "/var/www/html/condominio/views/ingresosegresos",
+							"detect_indentation": false,
+							"git_gutter_is_enabled": false,
+							"line_numbers": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([^ \t].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
 					"file": "models/Saldosmensuales.php",
 					"semi_transient": false,
 					"settings":
@@ -591,14 +635,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 435.0,
+						"translation.y": 367.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 5,
 					"file": "models/Ingresosegresos.php",
 					"semi_transient": false,
 					"settings":
@@ -625,11 +669,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "views/ingresosegresos/index.php",
 					"semi_transient": false,
 					"settings":
@@ -653,39 +697,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 204.0,
+						"translation.y": 136.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "views/ingresosegresos/_form.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8334,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8331,
-								8331
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/PHP/PHP.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 2344.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -747,7 +762,7 @@
 						"translation.y": 2101.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 6,
 					"type": "text"
 				}
 			]

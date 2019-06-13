@@ -9,6 +9,8 @@ use yii\bootstrap\Button;
 /* @var $this yii\web\View */
 /* @var $model app\models\Ingresosegresos */
 /* @var $form yii\widgets\ActiveForm */
+
+$ultimoDia = date("d",(mktime(0,0,0,$model['mes']+1,1,$model['anio']))-1);
 ?>
 
 <div class="ingresosegresos-form formulario">
@@ -91,15 +93,24 @@ use yii\bootstrap\Button;
                                 ]) ?>
                     </div>
                     <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">
+                    	<? //= //date("d",(mktime(0,0,0,$model['mes']+1,1,$model['anio']))-1) //date('m',strtotime("2011-01-07")) //gmdate('Y-m-d')//($model['mes']) ?>
                     	<?= $form->field($modelNuevoIE, 'fecha')
                                ->widget(DatePicker::className(),[
                                     'dateFormat' => 'yyyy-MM-dd',
                                     'clientOptions' => [
-                                        'yearRange' => '-115:+0',
-                                        'changeMonth' => true,
-                                        'changeYear' => true
+						                // 'minDate' => '+1m +1w',
+        								// 'maxDate'=> '+1m',
+										'minDate' => $model['anio'].'-'.$model['mes'].'-01', 			  // minimum date  Ej: '2019-01-01'
+        								'maxDate' => $model['anio'].'-'.$model['mes'].'-'.$ultimoDia,     // maximum date  Ej: '2019-01-31'
+                                    	'yearRange' => $model['anio'].':'.$model['anio'],
+                                    	//'defaultDate'=>'-60',
+                                    	// 'numberOfMonths' => 2,
+						                // 'changeMonth' => true,
+                                        //'yearRange' => '-115:+0',
+                                        'changeMonth' => false,
+                                        'changeYear' => false,
                                     ],
-                                    'options' => ['class' => 'form-control', 'style' => 'width:100%'] 
+                                    'options' => ['class' => 'form-control', 'style' => 'width:100%','readonly' => 'readonly'] 
                                 ]) ?>
                     </div>
                     <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">
@@ -112,8 +123,9 @@ use yii\bootstrap\Button;
                         <br>
                         <?= Button::Widget([
                             'label'=>'Incluir',
-                            'options'=>['class' => 'btn btn-success', 'onclick' => '(function ( $event ) { document.getElementById(\'movimientos-accion\').value = \'guardar\'; })();'],
-                            'id' => 'enviar',                         
+                            'options'=>['class' => 'btn btn-success', 
+                            'onclick' => '(function ( $event ) { document.getElementById(\'movimientos-accion\').value = \'guardar\'; })();'],
+                            'id' => 'enviarNuevo',                         
                             //'url' => Url::toRoute(['/controller/action']),
                             ]) ?>
                     </div>
@@ -149,11 +161,13 @@ use yii\bootstrap\Button;
 					    		->widget(DatePicker::className(),[
 	                                    'dateFormat' => 'yyyy-MM-dd',
 	                                    'clientOptions' => [
-	                                        'yearRange' => '-115:+0',
-	                                        'changeMonth' => true,
-	                                        'changeYear' => true
+											'minDate' => $model['anio'].'-'.$model['mes'].'-01', 			  // minimum date  Ej: '2019-01-01'
+	        								'maxDate' => $model['anio'].'-'.$model['mes'].'-'.$ultimoDia,     // maximum date  Ej: '2019-01-31'
+	                                    	'yearRange' => $model['anio'].':'.$model['anio'],
+	                                        'changeMonth' => false,
+	                                        'changeYear' => false,
 	                                    ],
-	                                    'options' => ['class' => 'form-control', 'style' => 'width:100%'] 
+	                                    'options' => ['class' => 'form-control', 'style' => 'width:100%', 'readonly' => 'readonly'] 
 	                                ]);
 				    		echo '</div>';
 				            echo '<div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">';
@@ -190,15 +204,14 @@ $script = <<< JS
        
         $('form#{$modelNuevoIE->formName()}').on('beforeSubmit', function(e)
         {
-            if(document.getElementById("movimientos-accion").value == "guardar") {
+			$("#enviarNuevo").on('click', function(event){
+            //if(document.getElementById("movimientos-accion").value == "guardar") {
                 var \$form = $(this);
-                //alert("Esta guardando");
                 $.post(
                     \$form.attr("action"), // serialize Yii2 form
                     \$form.serialize()
                 )
                     .done(function(result) {
-                        //alert("pasando");
                         console.log(result);
                         //console.log("Pasa");
                     }).fail(function()
@@ -206,7 +219,7 @@ $script = <<< JS
                             console.log("server error");
                         });
                     return false;
-           }
+            });
         });
 JS;
 $this->registerJs($script);
