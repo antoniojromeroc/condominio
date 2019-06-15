@@ -95,11 +95,18 @@ class IngresosegresosController extends Controller
     {
         $model = new Saldosmensuales();
 
+        if ($model->load(Yii::$app->request->post())) {
+            if(Ingresosegresos::existeSaldoInicial($model->anio) == 0){
+                Yii::$app->session->setFlash('error', 'Alerta. No se han creado los saldos iniciales para este año. Debe crear primero estos saldos para continuar...'); 
+                return $this->redirect(['index']);
+            }
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['create', 'idSM' => $model->id]);
         } else {
             if($model::buscaunico($model,'anio', 'mes',$model->anio, $model->mes)){
-                Yii::$app->session->setFlash('error', 'Alerta. El periodo ya existe. Intente con otro rando de año y mes.'); 
+                Yii::$app->session->setFlash('error', 'Alerta. El periodo ya existe. Intente con otro rango de año y mes.'); 
             }
             return $this->redirect(['index']);
         }
@@ -114,15 +121,26 @@ class IngresosegresosController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($id); /*  SALDOS MENSUALES */
         $modelNuevoIE = new Ingresosegresos;
 
         if ($modelNuevoIE->load(Yii::$app->request->post())) {
             $modelNuevoIE->save();
+            /******************/
+            /*   
+                MOSCA. HACER EL RESPECTIVO PROCEDIMIENTO PARA GUARDAR DATOS EN ESTA TABLA
+           */
+            // $model->monto_ingresos = 1000;
+            // $model->monto_egresos = 100;
+            // $model->saldo = 900;
+            // $model->save();
             $modelNuevoIE = new Ingresosegresos();
         }
 
         $modelIngresosegresos = $this->findIngresosegresos($model->anio, $model->mes);
+        $s = Ingresosegresos::calcularSaldos($model->anio, $model->mes);
+         print_r($s);
+         die();
         return $this->render('update', [
             'model' => $model,
             'modelNuevoIE' => $modelNuevoIE,

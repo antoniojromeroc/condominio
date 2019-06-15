@@ -90,4 +90,71 @@ class Ingresosegresos extends \yii\db\ActiveRecord
         return ArrayHelper::map($opciones, 'id', 'descripcion', 'tipo');
     }
 
+    /**
+     * Calcular montos de ingresos y egresos
+     */    
+
+    public static function existeSaldoInicial($anio)
+    {
+        if(Saldosiniciales::find()->where(['anio' => $anio])->one()) return 1;
+        else return 0;
+    }
+
+    public static function calcularSaldos($anio, $mes)
+    {
+        $sInicial = 0;
+        $sMesAnterior = 0;
+        $sMensualIngresos = 0;
+        $sMensualEgresos = 0;
+        $sMensual = 0;
+        $stringAretornar = '';
+
+        $sInicial = Saldosiniciales::find()
+            ->select('monto')
+            ->where(['anio' => $anio])
+            ->one();
+
+        $sMensualIngresos =  Ingresosegresos::find()
+            ->leftJoin('conceptos as cp', 'ingresosegresos.conceptos_id = cp.id')
+            ->where(['YEAR(fecha)' => $anio])
+            ->andWhere(['>=', 'MONTH(fecha)', 01])
+            ->andWhere(['<=', 'MONTH(fecha)', $mes])
+            ->andWhere(['cp.tipo' => 'INGRESO'])
+            // ->where([
+            //     'YEAR(fecha)' => $anio, 
+            //     'MONTH(fecha)' => $mes,
+            //     'cp.tipo' => 'INGRESO'
+            // ])
+            ->sum('monto');
+
+        $sMensualEgresos =  Ingresosegresos::find()
+            ->leftJoin('conceptos as cp', 'ingresosegresos.conceptos_id = cp.id')
+            ->where(['YEAR(fecha)' => $anio])
+            ->andWhere(['>=', 'MONTH(fecha)', 01])
+            ->andWhere(['<=', 'MONTH(fecha)', $mes])
+            ->andWhere(['cp.tipo' => 'EGRESO'])
+            ->sum('monto');
+
+        if($mes > 1)
+        {
+            $sMesAnterior = Saldosmensuales::find()
+                ->select('saldo')
+                ->where(['anio' => $anio])
+                ->andWhere(['mes' => $mes-1])
+                ->one();
+            $sMensual = $sMesAnterior['saldo']+$sMensualIngresos-$sMensualEgresos;
+        } else 
+        {
+            $sMensual = $sInicial['monto']+$sMensualIngresos-$sMensualEgresos;
+        }
+
+        $stringAretornar = $sInicial['monto'].';'.$sMesAnterior['saldo'].';'.$sMensualIngresos.';'.$sMensualEgresos.';'.$sMensual;
+        //print_r($sMensualIngresos);
+        //print_r($sMesAnterior['saldo']);
+        print($stringAretornar);
+         die();
+        //return $sInicial.','.$sMensualIngresos['monto'];
+        return $sMensualIngresos;
+    }
+
 }
