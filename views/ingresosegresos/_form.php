@@ -29,16 +29,22 @@ $ultimoDia = date("d",(mktime(0,0,0,$model['mes']+1,1,$model['anio']))-1);
                     <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>
                 </div>
                 <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>
-                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2" style="font-weight: bold;">
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1" style="font-weight: bold;">
                     Año:
                 </div>
-                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2" style="font-weight: bold;">
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1" style="font-weight: bold;">
                     Mes:
                 </div>
-                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-3" style="font-weight: bold;">
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2" style="font-weight: bold;">
+                    Saldo Inicial:
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2" style="font-weight: bold;">
+                    Mes Anterior:
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2" style="font-weight: bold;">
                     Ingresos:
                 </div>
-                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-3" style="font-weight: bold;">
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2" style="font-weight: bold;">
                     Egresos:
                 </div>
                 <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2" style="font-weight: bold;">
@@ -46,16 +52,22 @@ $ultimoDia = date("d",(mktime(0,0,0,$model['mes']+1,1,$model['anio']))-1);
                 </div>                
                 <div class="text-primary" style="font-size: 18px;">
                     <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>
-                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">
+                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1">
                         <?= $model['anio'] ?>
                     </div>
-                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">
+                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1">
                         <?= $model['mes'] ?>
                     </div>
-                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-3">
+                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">
+						<?= $model['saldoInicial'] ?>
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">
+						<?= $model['saldoMAnterior'] ?>
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">
                         <?= $model['monto_ingresos'] ?>
                     </div>
-                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-3">
+                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">
                         <?= $model['monto_egresos'] ?>
                     </div>
                     <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">

@@ -16,6 +16,10 @@ use Yii;
  */
 class Saldosmensuales extends \yii\db\ActiveRecord
 {
+
+    Public $saldoInicial = 0;
+    Public $saldoMAnterior = 0;
+    
     /**
      * {@inheritdoc}
      */
@@ -74,5 +78,80 @@ class Saldosmensuales extends \yii\db\ActiveRecord
             if($tabla::find()->where([ $campo1 => $valor1])->one()) return true;
         }
         return false;
+    }
+
+    public static function recalcular($anio)
+    {
+        $sInicial = 0;
+
+        $sInicial = Saldosiniciales::find()
+            ->select('monto')
+            ->where(['anio' => $anio])
+            ->one();
+
+        for ($mes=1; $mes <= 12; $mes++) { 
+            /*  Definicion y limpieza de variables*/
+            $sMesAnterior = 0;
+            $sMensualIngresos = 0;
+            $sMensualEgresos = 0;
+            $sMensual = 0;
+            $sMesActual = 0;   
+
+            $sMensualIngresos =  Ingresosegresos::find()
+                ->leftJoin('conceptos as cp', 'ingresosegresos.conceptos_id = cp.id')
+                ->where(['YEAR(fecha)' => $anio])
+                ->andWhere(['=', 'MONTH(fecha)', $mes])
+                ->andWhere(['cp.tipo' => 'INGRESO'])
+                ->sum('monto');
+            $sMensualEgresos =  Ingresosegresos::find()
+                ->leftJoin('conceptos as cp', 'ingresosegresos.conceptos_id = cp.id')
+                ->where(['YEAR(fecha)' => $anio])
+                ->andWhere(['=', 'MONTH(fecha)', $mes])
+                ->andWhere(['cp.tipo' => 'EGRESO'])
+                ->sum('monto');
+            if($sMensualIngresos or $sMensualEgresos)
+            {
+                if(is_null($sMensualIngresos)) $sMensualIngresos = 0;
+                if(is_null($sMensualEgresos)) $sMensualEgresos = 0;
+                if($mes == 1)
+                {
+                    $sMesActual = Saldosmensuales::find()
+                        //->select('saldo')
+                        ->where(['anio' => $anio])
+                        ->andWhere(['mes' => $mes])
+                        ->one();
+                    //$sMensual = $sMesAnterior['saldo']+$sMensualIngresos-$sMensualEgresos;
+                    $sMensual = $sInicial['monto']+$sMensualIngresos-$sMensualEgresos;
+                    if($sMesActual)
+                    {
+                        $sMesActual->monto_ingresos = $sMensualIngresos;
+                        $sMesActual->monto_egresos = $sMensualEgresos;
+                        $sMesActual->saldo = $sMensual;
+                        $sMesActual->save();
+                    }
+                } else 
+                {
+                    $sMesAnterior = Saldosmensuales::find()
+                        ->select('saldo')
+                        ->where(['anio' => $anio])
+                        ->andWhere(['mes' => $mes-1])
+                        ->one();
+                    $sMesActual = Saldosmensuales::find()
+                        //->select('saldo')
+                        ->where(['anio' => $anio])
+                        ->andWhere(['mes' => $mes])
+                        ->one();
+                    if($sMesActual)
+                    {
+                        $sMensual = $sMesAnterior['saldo']+$sMensualIngresos-$sMensualEgresos;
+                        $sMesActual->monto_ingresos = $sMensualIngresos;
+                        $sMesActual->monto_egresos = $sMensualEgresos;
+                        $sMesActual->saldo = $sMensual;
+                        $sMesActual->save();
+                    }
+                }
+            }            
+        }
+        return true;
     }
 }

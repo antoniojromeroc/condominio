@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 06-06-2019 a las 23:51:22
+-- Tiempo de generación: 15-06-2019 a las 20:59:31
 -- Versión del servidor: 5.7.26-0ubuntu0.18.04.1
 -- Versión de PHP: 7.2.17-0ubuntu0.18.04.1
 
@@ -181,6 +181,24 @@ CREATE TABLE `ingresosegresos` (
   `fecha` date NOT NULL,
   `monto` decimal(20,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Relación de Ingresos y Egresos';
+
+--
+-- Volcado de datos para la tabla `ingresosegresos`
+--
+
+INSERT INTO `ingresosegresos` (`id`, `conceptos_id`, `descripcion`, `fecha`, `monto`) VALUES
+(1, 1, 'Mensualidad', '2019-01-01', '200.00'),
+(2, 1, 'Mensualidad', '2019-06-01', '200.00'),
+(3, 1, 'Mensualidad', '2019-01-10', '300.00'),
+(4, 1, 'Mensualidad', '2019-01-03', '400.00'),
+(5, 1, 'Mensualidad', '2019-01-02', '500.00'),
+(6, 1, 'Mensualidad', '2019-05-08', '300.00'),
+(7, 1, 'Mensualidad', '2019-02-14', '200.00'),
+(8, 2, 'Libretas', '2019-01-24', '600.00'),
+(9, 2, 'Libretas', '2019-01-24', '600.00'),
+(10, 2, 'Libretas', '2019-02-21', '50.00'),
+(11, 2, 'Lapices', '2019-02-11', '20.00'),
+(12, 2, 'Lapiceros', '2019-02-13', '10.00');
 
 -- --------------------------------------------------------
 
@@ -400,6 +418,13 @@ CREATE TABLE `saldosiniciales` (
   `monto` decimal(20,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Saldos al iniciar el año fiscal';
 
+--
+-- Volcado de datos para la tabla `saldosiniciales`
+--
+
+INSERT INTO `saldosiniciales` (`id`, `anio`, `monto`) VALUES
+(1, 2019, '400000.00');
+
 -- --------------------------------------------------------
 
 --
@@ -414,6 +439,14 @@ CREATE TABLE `saldosmensuales` (
   `monto_egresos` decimal(20,2) NOT NULL DEFAULT '0.00',
   `saldo` decimal(20,2) NOT NULL DEFAULT '0.00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Saldos al finalizar cada mes';
+
+--
+-- Volcado de datos para la tabla `saldosmensuales`
+--
+
+INSERT INTO `saldosmensuales` (`id`, `anio`, `mes`, `monto_ingresos`, `monto_egresos`, `saldo`) VALUES
+(1, 2019, 1, '1000.00', '100.00', '900.00'),
+(2, 2019, 2, '1000.00', '100.00', '900.00');
 
 -- --------------------------------------------------------
 
@@ -484,7 +517,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`) VALUES
-(3, 'antoniojromeroc', 'antoniojromeroc@gmail.com', '$2y$12$JStaukkXWiUE/g2T7Q.7DuUH/m10rOLp0yO.JaC7GXTk6Qer3OD4S', 'B-W9DD4iODzh1iZlujTlcJNCopHja12w', 1558566627, NULL, NULL, '127.0.0.1', 1558565668, 1558565668, 0, 1559697582);
+(3, 'antoniojromeroc', 'antoniojromeroc@gmail.com', '$2y$12$JStaukkXWiUE/g2T7Q.7DuUH/m10rOLp0yO.JaC7GXTk6Qer3OD4S', 'B-W9DD4iODzh1iZlujTlcJNCopHja12w', 1558566627, NULL, NULL, '127.0.0.1', 1558565668, 1558565668, 0, 1560560205);
 
 -- --------------------------------------------------------
 
@@ -737,7 +770,8 @@ ALTER TABLE `saldosiniciales`
 -- Indices de la tabla `saldosmensuales`
 --
 ALTER TABLE `saldosmensuales`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `isecunda` (`anio`,`mes`);
 
 --
 -- Indices de la tabla `social_account`
@@ -849,7 +883,7 @@ ALTER TABLE `historicoobligaciones`
 -- AUTO_INCREMENT de la tabla `ingresosegresos`
 --
 ALTER TABLE `ingresosegresos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `juntacondominio`
 --
@@ -894,12 +928,12 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `saldosiniciales`
 --
 ALTER TABLE `saldosiniciales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `saldosmensuales`
 --
 ALTER TABLE `saldosmensuales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `social_account`
 --

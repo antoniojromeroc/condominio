@@ -103,7 +103,8 @@ class IngresosegresosController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['create', 'idSM' => $model->id]);
+            //return $this->redirect(['create', 'idSM' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             if($model::buscaunico($model,'anio', 'mes',$model->anio, $model->mes)){
                 Yii::$app->session->setFlash('error', 'Alerta. El periodo ya existe. Intente con otro rango de año y mes.'); 
@@ -133,14 +134,27 @@ class IngresosegresosController extends Controller
             // $model->monto_ingresos = 1000;
             // $model->monto_egresos = 100;
             // $model->saldo = 900;
-            // $model->save();
+            //$model->save();
             $modelNuevoIE = new Ingresosegresos();
         }
 
+        /*  Corrige posibles cambios en los saldos recorriendo  cada mes del año  */
+        $recalcular = Saldosmensuales::recalcular($model->anio);
+
         $modelIngresosegresos = $this->findIngresosegresos($model->anio, $model->mes);
-        $s = Ingresosegresos::calcularSaldos($model->anio, $model->mes);
-         print_r($s);
-         die();
+        //$sInicial['monto'].';'.$sMesAnterior['saldo'].';'.$sMensualIngresos.';'.$sMensualEgresos.';'.$sMensual;
+        $montos = Ingresosegresos::calcularSaldos($model->anio, $model->mes);
+        $montos = explode(';', $montos);
+
+        // print_r($montos);
+        // // print('monto'.$montos[0]);
+        //  die();
+        $model->saldoInicial = $montos[0];
+        $model->saldoMAnterior = $montos[1];
+        $model->monto_ingresos = $montos[2];
+        $model->monto_egresos = $montos[3];
+        $model->saldo = $montos[4];
+
         return $this->render('update', [
             'model' => $model,
             'modelNuevoIE' => $modelNuevoIE,

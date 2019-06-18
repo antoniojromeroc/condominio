@@ -117,8 +117,9 @@ class Ingresosegresos extends \yii\db\ActiveRecord
         $sMensualIngresos =  Ingresosegresos::find()
             ->leftJoin('conceptos as cp', 'ingresosegresos.conceptos_id = cp.id')
             ->where(['YEAR(fecha)' => $anio])
-            ->andWhere(['>=', 'MONTH(fecha)', 01])
-            ->andWhere(['<=', 'MONTH(fecha)', $mes])
+            // ->andWhere(['>=', 'MONTH(fecha)', 01])
+            // ->andWhere(['<=', 'MONTH(fecha)', $mes])
+            ->andWhere(['=', 'MONTH(fecha)', $mes])
             ->andWhere(['cp.tipo' => 'INGRESO'])
             // ->where([
             //     'YEAR(fecha)' => $anio, 
@@ -130,8 +131,7 @@ class Ingresosegresos extends \yii\db\ActiveRecord
         $sMensualEgresos =  Ingresosegresos::find()
             ->leftJoin('conceptos as cp', 'ingresosegresos.conceptos_id = cp.id')
             ->where(['YEAR(fecha)' => $anio])
-            ->andWhere(['>=', 'MONTH(fecha)', 01])
-            ->andWhere(['<=', 'MONTH(fecha)', $mes])
+            ->andWhere(['=', 'MONTH(fecha)', $mes])
             ->andWhere(['cp.tipo' => 'EGRESO'])
             ->sum('monto');
 
@@ -151,10 +151,10 @@ class Ingresosegresos extends \yii\db\ActiveRecord
         $stringAretornar = $sInicial['monto'].';'.$sMesAnterior['saldo'].';'.$sMensualIngresos.';'.$sMensualEgresos.';'.$sMensual;
         //print_r($sMensualIngresos);
         //print_r($sMesAnterior['saldo']);
-        print($stringAretornar);
-         die();
+        // print($stringAretornar);
+        //  die();
         //return $sInicial.','.$sMensualIngresos['monto'];
-        return $sMensualIngresos;
+        return $stringAretornar;
     }
 
 }
