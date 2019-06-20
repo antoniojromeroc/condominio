@@ -18,7 +18,7 @@ class ViviendasSearch extends Viviendas
     {
         return [
             [['id', 'personas_id'], 'integer'],
-            [['numero', 'calle', 'carrera', 'telefono', 'codigo'], 'safe'],
+            [['numero', 'nombre', 'calle', 'carrera', 'telefono', 'codigo'], 'safe'],
         ];
     }
 
@@ -63,6 +63,7 @@ class ViviendasSearch extends Viviendas
         ]);
 
         $query->andFilterWhere(['like', 'numero', $this->numero])
+            ->andFilterWhere(['like', 'nombre', $this->nombre])
             ->andFilterWhere(['like', 'calle', $this->calle])
             ->andFilterWhere(['like', 'carrera', $this->carrera])
             ->andFilterWhere(['like', 'telefono', $this->telefono])

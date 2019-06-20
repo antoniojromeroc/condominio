@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "cuentavivienda".
@@ -97,5 +98,27 @@ class Cuentavivienda extends \yii\db\ActiveRecord
     public static function find()
     {
         return new CuentaviviendaQuery(get_called_class());
+    }
+
+    public function getYearsList() {
+        $currentYear = date('Y');
+        $yearFrom = 2013;
+        //$yearsRange = range($yearFrom, $currentYear);
+        $yearsRange = range($currentYear, $yearFrom);
+        return array_combine($yearsRange, $yearsRange);
+    }
+    /**
+     * Permite carga de dropdownList
+     */    
+    public static function getListaViviendas()
+    {
+        $opciones = Viviendas::find()->asArray()->all();
+        return ArrayHelper::map($opciones, 'id', 'numero');
+    }
+
+    public static function getListaTipoObligaciones()
+    {
+        $opciones = Tipoobligaciones::find()->asArray()->all();
+        return ArrayHelper::map($opciones, 'id', 'descripcion');
     }
 }

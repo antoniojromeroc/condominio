@@ -19,7 +19,7 @@ class PagosviviendaSearch extends Pagosvivienda
         return [
             [['id', 'viviendas_id', 'bancoemisor_id', 'bancoreceptor_id'], 'integer'],
             [['monto'], 'number'],
-            [['num_operacion', 'num_cuenta', 'fecha_deposito', 'fecha_disponible'], 'safe'],
+            [['num_operacion', 'num_cuenta', 'nombre_depositante', 'cedula_depositante', 'fecha_deposito', 'fecha_disponible'], 'safe'],
         ];
     }
 
@@ -69,7 +69,9 @@ class PagosviviendaSearch extends Pagosvivienda
         ]);
 
         $query->andFilterWhere(['like', 'num_operacion', $this->num_operacion])
-            ->andFilterWhere(['like', 'num_cuenta', $this->num_cuenta]);
+            ->andFilterWhere(['like', 'num_cuenta', $this->num_cuenta])
+            ->andFilterWhere(['like', 'nombre_depositante', $this->nombre_depositante])
+            ->andFilterWhere(['like', 'cedula_depositante', $this->cedula_depositante]);
 
         return $dataProvider;
     }

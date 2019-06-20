@@ -44,6 +44,8 @@ class Pagosvivienda extends \yii\db\ActiveRecord
             [['monto'], 'number'],
             [['fecha_deposito', 'fecha_disponible'], 'safe'],
             [['num_operacion', 'num_cuenta'], 'string', 'max' => 50],
+            [['nombre_depositante'], 'string', 'max' => 255],
+            [['cedula_depositante'], 'string', 'max' => 25],
             [['bancoemisor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Bancos::className(), 'targetAttribute' => ['bancoemisor_id' => 'id']],
             [['bancoreceptor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Bancos::className(), 'targetAttribute' => ['bancoreceptor_id' => 'id']],
             [['viviendas_id'], 'exist', 'skipOnError' => true, 'targetClass' => Viviendas::className(), 'targetAttribute' => ['viviendas_id' => 'id']],
@@ -63,6 +65,8 @@ class Pagosvivienda extends \yii\db\ActiveRecord
             'bancoemisor_id' => Yii::t('app', 'Bancoemisor ID'),
             'bancoreceptor_id' => Yii::t('app', 'Bancoreceptor ID'),
             'num_cuenta' => Yii::t('app', 'Num Cuenta'),
+            'nombre_depositante' => Yii::t('app', 'Nombre Depositante'),
+            'cedula_depositante' => Yii::t('app', 'Cedula Depositante'),
             'fecha_deposito' => Yii::t('app', 'Fecha Deposito'),
             'fecha_disponible' => Yii::t('app', 'Fecha Disponible'),
         ];

@@ -70,7 +70,7 @@ class Personas extends \yii\db\ActiveRecord
             'celular' => Yii::t('app', 'Celular'),
             'telefono_local' => Yii::t('app', 'Telefono Local'),
             'email' => Yii::t('app', 'Email'),
-            'viviendas_id' => Yii::t('app', 'Vivienda donde habita'),
+            'viviendas_id' => Yii::t('app', 'Vivienda'),
             'responsable_vivienda' => Yii::t('app', 'Responsable Vivienda'),
         ];
     }

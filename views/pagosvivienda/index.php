@@ -34,6 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'bancoemisor_id',
             //'bancoreceptor_id',
             //'num_cuenta',
+            //'nombre_depositante',
+            //'cedula_depositante',
             'fecha_deposito',
             //'fecha_disponible',
 

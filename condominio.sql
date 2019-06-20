@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 15-06-2019 a las 20:59:31
+-- Tiempo de generación: 20-06-2019 a las 00:51:34
 -- Versión del servidor: 5.7.26-0ubuntu0.18.04.1
 -- Versión de PHP: 7.2.17-0ubuntu0.18.04.1
 
@@ -198,7 +198,10 @@ INSERT INTO `ingresosegresos` (`id`, `conceptos_id`, `descripcion`, `fecha`, `mo
 (9, 2, 'Libretas', '2019-01-24', '600.00'),
 (10, 2, 'Libretas', '2019-02-21', '50.00'),
 (11, 2, 'Lapices', '2019-02-11', '20.00'),
-(12, 2, 'Lapiceros', '2019-02-13', '10.00');
+(12, 2, 'Lapiceros', '2019-02-13', '10.00'),
+(13, 1, 'Mes de Marzo', '2019-03-30', '80000.00'),
+(14, 1, 'Mes de Abril', '2019-04-30', '85000.00'),
+(15, 1, 'Mes de Febrero', '2019-02-28', '1.00');
 
 -- --------------------------------------------------------
 
@@ -304,6 +307,8 @@ CREATE TABLE `pagosvivienda` (
   `bancoemisor_id` int(11) NOT NULL,
   `bancoreceptor_id` int(11) NOT NULL,
   `num_cuenta` char(50) NOT NULL,
+  `nombre_depositante` varchar(255) DEFAULT NULL,
+  `cedula_depositante` varchar(25) DEFAULT NULL,
   `fecha_deposito` date NOT NULL,
   `fecha_disponible` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Pagos efectuados';
@@ -445,8 +450,10 @@ CREATE TABLE `saldosmensuales` (
 --
 
 INSERT INTO `saldosmensuales` (`id`, `anio`, `mes`, `monto_ingresos`, `monto_egresos`, `saldo`) VALUES
-(1, 2019, 1, '1000.00', '100.00', '900.00'),
-(2, 2019, 2, '1000.00', '100.00', '900.00');
+(1, 2019, 1, '1400.00', '1200.00', '400200.00'),
+(2, 2019, 2, '201.00', '80.00', '400321.00'),
+(3, 2019, 3, '80000.00', '0.00', '480321.00'),
+(4, 2019, 4, '85000.00', '0.00', '565321.00');
 
 -- --------------------------------------------------------
 
@@ -476,6 +483,13 @@ CREATE TABLE `tipoobligaciones` (
   `id` int(11) NOT NULL,
   `descripcion` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tipoobligaciones`
+--
+
+INSERT INTO `tipoobligaciones` (`id`, `descripcion`) VALUES
+(1, 'Mensualidad');
 
 -- --------------------------------------------------------
 
@@ -517,7 +531,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`) VALUES
-(3, 'antoniojromeroc', 'antoniojromeroc@gmail.com', '$2y$12$JStaukkXWiUE/g2T7Q.7DuUH/m10rOLp0yO.JaC7GXTk6Qer3OD4S', 'B-W9DD4iODzh1iZlujTlcJNCopHja12w', 1558566627, NULL, NULL, '127.0.0.1', 1558565668, 1558565668, 0, 1560560205);
+(3, 'antoniojromeroc', 'antoniojromeroc@gmail.com', '$2y$12$JStaukkXWiUE/g2T7Q.7DuUH/m10rOLp0yO.JaC7GXTk6Qer3OD4S', 'B-W9DD4iODzh1iZlujTlcJNCopHja12w', 1558566627, NULL, NULL, '127.0.0.1', 1558565668, 1558565668, 0, 1560913979);
 
 -- --------------------------------------------------------
 
@@ -586,6 +600,7 @@ INSERT INTO `user_empresa` (`id`, `user_id`, `empresas_id`) VALUES
 CREATE TABLE `viviendas` (
   `id` int(11) NOT NULL,
   `numero` varchar(10) NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
   `calle` varchar(35) DEFAULT NULL,
   `carrera` varchar(35) DEFAULT NULL,
   `telefono` varchar(50) DEFAULT NULL,
@@ -597,8 +612,8 @@ CREATE TABLE `viviendas` (
 -- Volcado de datos para la tabla `viviendas`
 --
 
-INSERT INTO `viviendas` (`id`, `numero`, `calle`, `carrera`, `telefono`, `personas_id`, `codigo`) VALUES
-(2, '11-167', '', '13', '02512530583', NULL, '11-167');
+INSERT INTO `viviendas` (`id`, `numero`, `nombre`, `calle`, `carrera`, `telefono`, `personas_id`, `codigo`) VALUES
+(2, '11-167', 'La Rivera', '', '13', '02512530583', NULL, '11-167');
 
 -- --------------------------------------------------------
 
@@ -654,8 +669,8 @@ ALTER TABLE `cuentavivienda`
 --
 ALTER TABLE `cuentavivienda_pagosvivienda`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_cuentaviviendas_pagosvivienda_cv` (`cuentavivienda_id`),
-  ADD KEY `fk_cuentaviviendas_pagosvivienda_pv` (`pagosvivienda_id`);
+  ADD KEY `fk_cuentaviviendas_pagosvivienda_pv` (`pagosvivienda_id`),
+  ADD KEY `fk_cuentaviviendas_pagosvivienda_cv` (`cuentavivienda_id`);
 
 --
 -- Indices de la tabla `directiva`
@@ -860,6 +875,11 @@ ALTER TABLE `cargos`
 ALTER TABLE `conceptos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT de la tabla `cuentavivienda`
+--
+ALTER TABLE `cuentavivienda`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `cuentavivienda_pagosvivienda`
 --
 ALTER TABLE `cuentavivienda_pagosvivienda`
@@ -883,7 +903,7 @@ ALTER TABLE `historicoobligaciones`
 -- AUTO_INCREMENT de la tabla `ingresosegresos`
 --
 ALTER TABLE `ingresosegresos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT de la tabla `juntacondominio`
 --
@@ -933,7 +953,7 @@ ALTER TABLE `saldosiniciales`
 -- AUTO_INCREMENT de la tabla `saldosmensuales`
 --
 ALTER TABLE `saldosmensuales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `social_account`
 --
@@ -943,7 +963,7 @@ ALTER TABLE `social_account`
 -- AUTO_INCREMENT de la tabla `tipoobligaciones`
 --
 ALTER TABLE `tipoobligaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `user`
 --

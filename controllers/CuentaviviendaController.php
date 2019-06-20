@@ -66,9 +66,15 @@ class CuentaviviendaController extends Controller
     {
         $model = new Cuentavivienda();
 
+        // if ($model->load(Yii::$app->request->post())){
+        //     print_r($model);
+        //     $model->save();
+        //     die();
+        // }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        }
+        } 
 
         return $this->render('create', [
             'model' => $model,

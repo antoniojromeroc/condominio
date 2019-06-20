@@ -27,19 +27,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'cedula_identidad',
             'nacionalidad',
             'primer_apellido',
             'segundo_apellido',
-            //'primer_nombre',
+            'primer_nombre',
             //'segundo_nombre',
             //'sexo',
             //'celular',
             //'telefono_local',
             //'email:email',
             //'viviendas_id',
-            //'responsable_vivienda',
+            [
+                'attribute' => 'viviendas_id',
+                'value' => 'viviendas.numero',
+            ],
+            'responsable_vivienda',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

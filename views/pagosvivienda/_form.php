@@ -24,6 +24,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'num_cuenta')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'nombre_depositante')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'cedula_depositante')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'fecha_deposito')->textInput() ?>
 
     <?= $form->field($model, 'fecha_disponible')->textInput() ?>

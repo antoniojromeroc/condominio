@@ -22,6 +22,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'numero') ?>
 
+    <?= $form->field($model, 'nombre') ?>
+
     <?= $form->field($model, 'calle') ?>
 
     <?= $form->field($model, 'carrera') ?>

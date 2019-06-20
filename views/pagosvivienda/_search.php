@@ -31,6 +31,10 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'bancoreceptor_id') ?>
 
     <?php // echo $form->field($model, 'num_cuenta') ?>
+    
+    <?php // echo $form->field($model, 'nombre_depositante') ?>
+
+    <?php // echo $form->field($model, 'cedula_depositante') ?>
 
     <?php // echo $form->field($model, 'fecha_deposito') ?>
 

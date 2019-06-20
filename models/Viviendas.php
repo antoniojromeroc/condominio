@@ -39,6 +39,7 @@ class Viviendas extends \yii\db\ActiveRecord
             [['numero'], 'required'], //'personas_id'
             [['personas_id'], 'integer'],
             [['numero'], 'string', 'max' => 10],
+            [['nombre'], 'string', 'max' => 255], 
             [['calle', 'carrera'], 'string', 'max' => 35],
             [['telefono'], 'string', 'max' => 50],
             [['codigo'], 'string', 'max' => 150],
@@ -54,6 +55,7 @@ class Viviendas extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'numero' => Yii::t('app', 'Numero'),
+            'nombre' => Yii::t('app', 'Nombre'),
             'calle' => Yii::t('app', 'Calle'),
             'carrera' => Yii::t('app', 'Carrera'),
             'telefono' => Yii::t('app', 'Telefono'),

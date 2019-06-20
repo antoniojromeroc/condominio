@@ -33,6 +33,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     <?= $form->field($model, 'numero')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'calle')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'carrera')->textInput(['maxlength' => true]) ?>
