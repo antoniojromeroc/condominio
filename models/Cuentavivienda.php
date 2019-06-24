@@ -24,6 +24,15 @@ use yii\helpers\ArrayHelper;
  */
 class Cuentavivienda extends \yii\db\ActiveRecord
 {
+
+    public $idObligacion=0;
+    public $TipoObligacion='';
+    public $montopagado=0;
+    public $montofaltante=0;
+    public $montoapagar=0;
+    public $relacionar=0;   /*  Relacionar es una variable tipo boolean (1-0). Indica si esta relacionado o no. */
+
+
     /**
      * {@inheritdoc}
      */
@@ -38,12 +47,12 @@ class Cuentavivienda extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'viviendas_id', 'descripcion', 'mes', 'anio', 'monto'], 'required'],
-            [['id', 'viviendas_id', 'tipoobligaciones_id', 'mes', 'anio'], 'integer'],
+            [['viviendas_id', 'descripcion', 'mes', 'anio', 'monto'], 'required'],
+            [['viviendas_id', 'tipoobligaciones_id', 'mes', 'anio'], 'integer'],
             [['monto', 'monto_faltante'], 'number'],
             [['fecha_vencimiento'], 'safe'],
             [['descripcion'], 'string', 'max' => 250],
-            [['id'], 'unique'],
+            //[['id'], 'unique'],
             [['viviendas_id'], 'exist', 'skipOnError' => true, 'targetClass' => Viviendas::className(), 'targetAttribute' => ['viviendas_id' => 'id']],
             [['tipoobligaciones_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tipoobligaciones::className(), 'targetAttribute' => ['tipoobligaciones_id' => 'id']],
         ];
@@ -64,6 +73,7 @@ class Cuentavivienda extends \yii\db\ActiveRecord
             'monto' => Yii::t('app', 'Monto'),
             'fecha_vencimiento' => Yii::t('app', 'Fecha Vencimiento'),
             'monto_faltante' => Yii::t('app', 'Monto Faltante'),
+            'montoapagar' => Yii::t('app', 'Monto A Pagar'),
         ];
     }
 

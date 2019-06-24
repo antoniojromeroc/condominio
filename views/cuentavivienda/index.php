@@ -27,9 +27,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'viviendas_id',
-            'tipoobligaciones_id',
+            // 'id',
+            [
+                'attribute' => 'viviendas_id',
+                'value' => 'viviendas.numero',
+            ],
+            [
+                'attribute' => 'tipoobligaciones_id',
+                'value' => 'tipoobligaciones.descripcion'
+            ],
+            
             'descripcion',
             'mes',
             //'anio',

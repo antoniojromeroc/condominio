@@ -34,6 +34,7 @@ class CuentaviviendaPagosvivienda extends \yii\db\ActiveRecord
             [['cuentavivienda_id', 'pagosvivienda_id', 'montopagado'], 'required'],
             [['cuentavivienda_id', 'pagosvivienda_id'], 'integer'],
             [['montopagado'], 'number'],
+            [['cuentavivienda_id', 'pagosvivienda_id'], 'unique'],
             [['cuentavivienda_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cuentavivienda::className(), 'targetAttribute' => ['cuentavivienda_id' => 'id']],
             [['pagosvivienda_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pagosvivienda::className(), 'targetAttribute' => ['pagosvivienda_id' => 'id']],
         ];

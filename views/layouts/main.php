@@ -94,7 +94,7 @@ AppAsset::register($this);
                                    'title' =>'Listado de las Obligaciones adquiridas por los Residentes', 
                                    'class' => 'myTooltipClass'],
                         'url' => ['/cuentavivienda']],
-                    ['label' => Html::tag('span','',['class' => 'glyphicon glyphicon-briefcase']).'  Pagos por Servicios', 
+                    ['label' => Html::tag('span','',['class' => 'glyphicon glyphicon-briefcase']).'  Pagos de Obligaciones', 
                         'url' => ['/pagosvivienda']],
                     ['label' => Html::tag('span','',['class' => 'glyphicon glyphicon-book']).'  Historico de Obligaciones',
                         'options' =>[ 'data-toggle' => 'tooltip',  

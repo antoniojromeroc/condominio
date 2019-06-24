@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
+
 
 /**
  * This is the model class for table "pagosvivienda".
@@ -119,5 +121,20 @@ class Pagosvivienda extends \yii\db\ActiveRecord
     public static function find()
     {
         return new PagosviviendaQuery(get_called_class());
+    }
+
+    /**
+     * Permite carga de dropdownList
+     */    
+    public static function getListaViviendas()
+    {
+        $opciones = Viviendas::find()->asArray()->all();
+        return ArrayHelper::map($opciones, 'id', 'numero');
+    }
+
+    public static function getListaBancos()
+    {
+        $opciones = Bancos::find()->asArray()->all();
+        return ArrayHelper::map($opciones, 'id', 'nombre');
     }
 }

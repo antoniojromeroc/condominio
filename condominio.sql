@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 20-06-2019 a las 00:51:34
+-- Tiempo de generación: 23-06-2019 a las 21:04:13
 -- Versión del servidor: 5.7.26-0ubuntu0.18.04.1
 -- Versión de PHP: 7.2.17-0ubuntu0.18.04.1
 
@@ -104,6 +104,13 @@ CREATE TABLE `cuentavivienda` (
   `monto_faltante` decimal(20,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Guarda la relacion mensual de compromisos de cada vivienda';
 
+--
+-- Volcado de datos para la tabla `cuentavivienda`
+--
+
+INSERT INTO `cuentavivienda` (`id`, `viviendas_id`, `tipoobligaciones_id`, `descripcion`, `mes`, `anio`, `monto`, `fecha_vencimiento`, `monto_faltante`) VALUES
+(1, 2, 1, 'Mensualidad del mes de Enero de 2019', 1, 2019, '2000.00', '2019-01-31', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -116,6 +123,13 @@ CREATE TABLE `cuentavivienda_pagosvivienda` (
   `pagosvivienda_id` int(11) NOT NULL,
   `montopagado` decimal(20,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de vinculación de cuentas y pagos de las viviendas ';
+
+--
+-- Volcado de datos para la tabla `cuentavivienda_pagosvivienda`
+--
+
+INSERT INTO `cuentavivienda_pagosvivienda` (`id`, `cuentavivienda_id`, `pagosvivienda_id`, `montopagado`) VALUES
+(4, 1, 1, '10.00');
 
 -- --------------------------------------------------------
 
@@ -312,6 +326,13 @@ CREATE TABLE `pagosvivienda` (
   `fecha_deposito` date NOT NULL,
   `fecha_disponible` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Pagos efectuados';
+
+--
+-- Volcado de datos para la tabla `pagosvivienda`
+--
+
+INSERT INTO `pagosvivienda` (`id`, `viviendas_id`, `monto`, `num_operacion`, `bancoemisor_id`, `bancoreceptor_id`, `num_cuenta`, `nombre_depositante`, `cedula_depositante`, `fecha_deposito`, `fecha_disponible`) VALUES
+(1, 2, '50.00', '000001', 1, 1, '01020527', 'Ruperto', '11056784', '2019-01-01', NULL);
 
 -- --------------------------------------------------------
 
@@ -531,7 +552,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`) VALUES
-(3, 'antoniojromeroc', 'antoniojromeroc@gmail.com', '$2y$12$JStaukkXWiUE/g2T7Q.7DuUH/m10rOLp0yO.JaC7GXTk6Qer3OD4S', 'B-W9DD4iODzh1iZlujTlcJNCopHja12w', 1558566627, NULL, NULL, '127.0.0.1', 1558565668, 1558565668, 0, 1560913979);
+(3, 'antoniojromeroc', 'antoniojromeroc@gmail.com', '$2y$12$JStaukkXWiUE/g2T7Q.7DuUH/m10rOLp0yO.JaC7GXTk6Qer3OD4S', 'B-W9DD4iODzh1iZlujTlcJNCopHja12w', 1558566627, NULL, NULL, '127.0.0.1', 1558565668, 1558565668, 0, 1561324830);
 
 -- --------------------------------------------------------
 
@@ -669,8 +690,8 @@ ALTER TABLE `cuentavivienda`
 --
 ALTER TABLE `cuentavivienda_pagosvivienda`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_cuentaviviendas_pagosvivienda_pv` (`pagosvivienda_id`),
-  ADD KEY `fk_cuentaviviendas_pagosvivienda_cv` (`cuentavivienda_id`);
+  ADD UNIQUE KEY `Unico` (`cuentavivienda_id`,`pagosvivienda_id`),
+  ADD KEY `fk_cuentaviviendas_pagosvivienda_pv` (`pagosvivienda_id`);
 
 --
 -- Indices de la tabla `directiva`
@@ -878,12 +899,12 @@ ALTER TABLE `conceptos`
 -- AUTO_INCREMENT de la tabla `cuentavivienda`
 --
 ALTER TABLE `cuentavivienda`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `cuentavivienda_pagosvivienda`
 --
 ALTER TABLE `cuentavivienda_pagosvivienda`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `directiva`
 --
@@ -928,7 +949,7 @@ ALTER TABLE `operacion`
 -- AUTO_INCREMENT de la tabla `pagosvivienda`
 --
 ALTER TABLE `pagosvivienda`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `personas`
 --
