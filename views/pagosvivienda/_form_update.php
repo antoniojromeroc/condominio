@@ -65,6 +65,15 @@ $colorCampos = "#E7E6EE";
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <div class="container-fluid">
+        <div class="row">  
+            <div class="row fondocampo" style="width:70%;">
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12 fondoCabecera">
+                    Datos del Depósito
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1"></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
     <?= $form->field($model, 'viviendas_id')
             ->dropDownList($model->listaViviendas, 
                 ['prompt' => 'Seleccione Uno', 
@@ -72,25 +81,62 @@ $colorCampos = "#E7E6EE";
                  "onchange"=>"Obligaciones();"
                 ]                 
              );?>
-
-    <?= $form->field($model, 'monto')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'num_operacion')->textInput(['maxlength' => true]) ?>
-
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1"></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 bg-primary" style="font-size: 18px">
+                    <center>Bancos</center>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1"></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-5">
     <?= $form->field($model, 'bancoemisor_id')
             ->dropDownList($model->listaBancos, 
                 ['prompt' => 'Seleccione Uno', 'style'=>'width:100%']);?>
+            </div>
+
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-5">
 
     <?= $form->field($model, 'bancoreceptor_id')
             ->dropDownList($model->listaBancos, 
                 ['prompt' => 'Seleccione Uno', 'style'=>'width:100%']);?>
+</div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1"></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 bg-primary" style="font-size: 18px">
+                    <center>Datos del Depósito</center>
+                </div>
 
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1"></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-5">
+    <?= $form->field($model, 'monto')->textInput(['maxlength' => true]) ?>
+</div>
+<div class="col-xs-12 col-sm-8 col-md-9 col-lg-5">
+    <?= $form->field($model, 'num_operacion')->textInput(['maxlength' => true]) ?>
+</div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1"></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-5">
     <?= $form->field($model, 'num_cuenta')->textInput(['maxlength' => true]) ?>
-
+</div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-5">
     <?= $form->field($model, 'nombre_depositante')->textInput(['maxlength' => true]) ?>
-
+</div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1"></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-5">
     <?= $form->field($model, 'cedula_depositante')->textInput(['maxlength' => true]) ?>
 
+</div>
+<div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1"></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 bg-primary" style="font-size: 18px">
+                    <center>Fechas</center>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1"></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-5">
     <?= $form->field($model, 'fecha_deposito')
             ->widget(DatePicker::className(),[
                                     'dateFormat' => 'yyyy-MM-dd',
@@ -105,7 +151,8 @@ $colorCampos = "#E7E6EE";
                                     ],
                                     'options' => ['class' => 'form-control', 'style' => 'width:100%','readonly' => 'readonly'] 
                                 ]) ?>
-
+</div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-5">
     <?= $form->field($model, 'fecha_disponible')
             ->widget(DatePicker::className(),[
                                     'dateFormat' => 'yyyy-MM-dd',
@@ -120,14 +167,30 @@ $colorCampos = "#E7E6EE";
                                     ],
                                     'options' => ['class' => 'form-control', 'style' => 'width:100%','readonly' => 'readonly'] 
                                 ]) ?>
+</div>
 
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
-    </div>
+                <div class="col-md-12"><br></div>
+
+
+<!-- <div class="container-fluid">
+    <div class="form-group"> -->
+        <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1"></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9"></div>
+        <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">
+            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        </div>
+<!--     </div> -->
 
     <?php ActiveForm::end(); ?>
+<!-- </div> -->
+            <div class="col-md-12"><br></div>
+            </div>
+            <div class="col-md-12"><br></div>
 
 </div>
+</div>
+
 
 
 <?php
@@ -165,20 +228,71 @@ $colorCampos = "#E7E6EE";
                 echo $form->field($obligacion, "[$obligacion->id]montofaltante")->textInput();
                 echo $form->field($model, "[$obligacion->id]monto")->textInput();
             echo '</div>';
-            
+  
+    echo '<div class="container-fluid">';
+    echo '      <div class="row">  ';
+    echo '          <div class="row fondocampo" style="width:70%;">';
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12 fondoCabecera">';
+    echo '                  Obligaciones a Vincular con el Depósito';
+    echo '              </div>';
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>';
+    //echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1"></div>';
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">          ';
+            echo "Tipo";
+    echo '              </div>';            
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-3">          ';
+            echo "descripción";
+    echo '              </div>';            
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1">          ';
+            echo "Monto";
+    echo '              </div>';            
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1">          ';
+            echo "Pagado";
+    echo '              </div>';            
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1">          ';
+            echo "Faltante";
+    echo '              </div>';            
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">          ';
+            echo "A Pagar";
+    echo '              </div>';            
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1">          ';
+            echo "Vincular";
+    echo '              </div>';            
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>';
+    //echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1"></div>';
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">          ';
             echo $obligacion->tipoobligaciones->descripcion;
+    echo '              </div>';            
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-3">          ';
             echo $obligacion->descripcion;
+    echo '              </div>';            
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1">          ';
             echo $obligacion->monto;
-            echo 'monto pagado:'.$obligacion->montopagado;
-            echo 'monto faltante:'.$obligacion->montofaltante;
-            echo $form->field($obligacion, "[$obligacion->id]montoapagar")->textInput();
-            echo $form->field($obligacion, "[$obligacion->id]relacionar")->checkbox();
+    echo '              </div>';            
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1">          ';
+            echo $obligacion->montopagado;
+    echo '              </div>';            
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1">          ';
+            echo $obligacion->montofaltante;
+    echo '              </div>';            
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">          ';            
+            echo $form->field($obligacion, "[$obligacion->id]montoapagar")->textInput()->label(false);
+    echo '              </div>';            
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1">          ';            
+            echo $form->field($obligacion, "[$obligacion->id]relacionar")->checkbox()->label(false);
+    echo '              </div>';            
+
             // echo $form->field($obligacion, 
             //         "[$obligacion->id]relacionar")->
             //             checkbox([
             //                 "onchange"=>"actualizar();"
             //             ]);
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>';
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10"></div>';
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">';
             echo Html::button('Actualizar', [ 'class' => 'btn btn-primary', 'onclick' => 'actualizar();' ]);
+    echo '              </div>';        
+    echo '              <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>';
 
             //echo '<a class="btn btn-danger grid-button" onclick="actualizar()">Actualizar</a>';
             //echo "string";
@@ -186,7 +300,12 @@ $colorCampos = "#E7E6EE";
         }
 
     ActiveForm::end();
+?>
+</div>
 
+<div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br><br></div>
+
+<?php
 // print("Obligaciones");
 // print_r($modelCuentav);
 // print("Relaciones:");
