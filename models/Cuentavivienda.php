@@ -27,10 +27,11 @@ class Cuentavivienda extends \yii\db\ActiveRecord
 
     public $idObligacion=0;
     public $TipoObligacion='';
-    public $montopagado=0;
-    public $montofaltante=0;
-    public $montoapagar=0;
+    public $montopagado=0.00;
+    public $montofaltante=0.00;
+    public $montoapagar=0.00;
     public $relacionar=0;   /*  Relacionar es una variable tipo boolean (1-0). Indica si esta relacionado o no. */
+    public $montorestante=0;
 
 
     /**
