@@ -39,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             
             'descripcion',
             'mes',
+            'cerrada',
             //'anio',
             //'monto',
             //'fecha_vencimiento',

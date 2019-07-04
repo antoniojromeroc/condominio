@@ -4,16 +4,40 @@
 		"selected_items":
 		[
 			[
+				"mode",
+				"modelCuentavPagosvNuevo"
+			],
+			[
+				"mon",
+				"montoaporte"
+			],
+			[
+				"en",
+				"enviado"
+			],
+			[
+				"PAgo",
+				"Pagosvivienda_"
+			],
+			[
+				"cuenta",
+				"Cuentavivienda"
+			],
+			[
+				"vi",
+				"vinculacion"
+			],
+			[
+				"modelCuent",
+				"modelCuentavPagosv"
+			],
+			[
 				"model",
-				"modelCuentavPagosvUnico"
+				"modelCuentav"
 			],
 			[
 				"obl",
 				"idObligacion"
-			],
-			[
-				"mon",
-				"montopagado"
 			],
 			[
 				"mod",
@@ -74,10 +98,6 @@
 			[
 				"for",
 				"foreach\tforeach …"
-			],
-			[
-				"mode",
-				"models"
 			],
 			[
 				"modelc",
@@ -316,10 +336,10 @@
 	"buffers":
 	[
 		{
-			"file": "views/ingresosegresos/_form.php",
+			"file": "views/cuentavivienda/_form_update.php",
 			"settings":
 			{
-				"buffer_size": 11871,
+				"buffer_size": 8043,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -328,36 +348,7 @@
 			"file": "controllers/PagosviviendaController.php",
 			"settings":
 			{
-				"buffer_size": 9202,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "views/pagosvivienda/_form_update.php",
-			"settings":
-			{
-				"buffer_size": 15016,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "<?php\n\nnamespace app\\controllers;\n\nuse Yii;\nuse app\\models\\Cuentavivienda;\nuse app\\models\\CuentaviviendaSearch;\nuse yii\\web\\Controller;\nuse yii\\web\\NotFoundHttpException;\nuse yii\\filters\\VerbFilter;\n\n/**\n * CuentaviviendaController implements the CRUD actions for Cuentavivienda model.\n */\nclass CuentaviviendaController extends Controller\n{\n    /**\n     * {@inheritdoc}\n     */\n    public function behaviors()\n    {\n        return [\n            'verbs' => [\n                'class' => VerbFilter::className(),\n                'actions' => [\n                    'delete' => ['POST'],\n                ],\n            ],\n        ];\n    }\n\n    /**\n     * Lists all Cuentavivienda models.\n     * @return mixed\n     */\n    public function actionIndex()\n    {\n        $searchModel = new CuentaviviendaSearch();\n        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);\n\n        return $this->render('index', [\n            'searchModel' => $searchModel,\n            'dataProvider' => $dataProvider,\n        ]);\n    }\n\n    /**\n     * Displays a single Cuentavivienda model.\n     * @param integer $id\n     * @return mixed\n     * @throws NotFoundHttpException if the model cannot be found\n     */\n    public function actionView($id)\n    {\n        return $this->render('view', [\n            'model' => $this->findModel($id),\n        ]);\n    }\n\n    /**\n     * Creates a new Cuentavivienda model.\n     * If creation is successful, the browser will be redirected to the 'view' page.\n     * @return mixed\n     */\n    public function actionCreate()\n    {\n        $model = new Cuentavivienda();\n        $modelObligaciones = \n\n        // if ($model->load(Yii::$app->request->post())){\n        //     print_r($model);\n        //     $model->save();\n        //     die();\n        // }\n\n        if ($model->load(Yii::$app->request->post()) && $model->save()) {\n            return $this->redirect(['view', 'id' => $model->id]);\n        } \n\n        return $this->render('create', [\n            'model' => $model,\n        ]);\n    }\n\n    /**\n     * Updates an existing Cuentavivienda model.\n     * If update is successful, the browser will be redirected to the 'view' page.\n     * @param integer $id\n     * @return mixed\n     * @throws NotFoundHttpException if the model cannot be found\n     */\n    public function actionUpdate($id)\n    {\n        $model = $this->findModel($id);\n\n        if ($model->load(Yii::$app->request->post()) && $model->save()) {\n            return $this->redirect(['view', 'id' => $model->id]);\n        }\n\n        return $this->render('update', [\n            'model' => $model,\n        ]);\n    }\n\n    /**\n     * Deletes an existing Cuentavivienda model.\n     * If deletion is successful, the browser will be redirected to the 'index' page.\n     * @param integer $id\n     * @return mixed\n     * @throws NotFoundHttpException if the model cannot be found\n     */\n    public function actionDelete($id)\n    {\n        $this->findModel($id)->delete();\n\n        return $this->redirect(['index']);\n    }\n\n    /**\n     * Finds the Cuentavivienda model based on its primary key value.\n     * If the model is not found, a 404 HTTP exception will be thrown.\n     * @param integer $id\n     * @return Cuentavivienda the loaded model\n     * @throws NotFoundHttpException if the model cannot be found\n     */\n    protected function findModel($id)\n    {\n        if (($model = Cuentavivienda::findOne($id)) !== null) {\n            return $model;\n        }\n\n        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));\n    }\n}\n",
-			"file": "controllers/CuentaviviendaController.php",
-			"file_size": 3531,
-			"file_write_time": 132054757237307337,
-			"settings":
-			{
-				"buffer_size": 3561,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "models/Cuentavivienda.php",
-			"settings":
-			{
-				"buffer_size": 3983,
+				"buffer_size": 10665,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -366,16 +357,34 @@
 			"file": "models/CuentaviviendaPagosvivienda.php",
 			"settings":
 			{
-				"buffer_size": 2219,
+				"buffer_size": 2380,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "messages/es/app.php",
+			"file": "views/pagosvivienda/_form_update.php",
 			"settings":
 			{
-				"buffer_size": 5207,
+				"buffer_size": 16326,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "controllers/CuentaviviendaController.php",
+			"settings":
+			{
+				"buffer_size": 3639,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "models/Cuentavivienda.php",
+			"settings":
+			{
+				"buffer_size": 4083,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -459,6 +468,7 @@
 	"expanded_folders":
 	[
 		"/var/www/html/condominio",
+		"/var/www/html/condominio/config",
 		"/var/www/html/condominio/controllers",
 		"/var/www/html/condominio/messages",
 		"/var/www/html/condominio/messages/es",
@@ -478,18 +488,29 @@
 	],
 	"file_history":
 	[
+		"/var/www/html/condominio/models/CuentaviviendaPagosvivienda.php",
+		"/var/www/html/condominio/models/Pagosvivienda.php",
+		"/var/www/html/condominio/controllers/PagosviviendaController.php",
+		"/var/www/html/condominio/config/params.php",
 		"/var/www/html/condominio/controllers/IngresosegresosController.php",
+		"/var/www/html/condominio/controllers/HistoricomensualidadController.php",
+		"/var/www/html/condominio/controllers/EmpresasController.php",
+		"/var/www/html/condominio/models/Bancos.php",
+		"/var/www/html/condominio/views/pagosvivienda/_form_update.php",
+		"/var/www/html/condominio/messages/es/app.php",
+		"/var/www/html/condominio/views/pagosvivienda/_form.php",
+		"/var/www/html/condominio/views/cuentavivienda/_form.php",
+		"/var/www/html/condominio/views/cuentavivienda/update.php",
+		"/var/www/html/condominio/views/cuentavivienda/index.php",
+		"/var/www/html/condominio/models/CuentaviviendaSearch.php",
+		"/var/www/html/condominio/views/ingresosegresos/_form.php",
 		"/var/www/html/condominio/views/layouts/main.php",
 		"/var/www/html/condominio/views/ingresosegresos/index.php",
 		"/var/www/html/condominio/models/Viviendas.php",
-		"/var/www/html/condominio/views/cuentavivienda/index.php",
-		"/var/www/html/condominio/views/pagosvivienda/_form.php",
 		"/var/www/html/condominio/views/pagosvivienda/update.php",
 		"/var/www/html/condominio/controllers/CuentaviviendaPagosviviendaController.php",
 		"/var/www/html/condominio/views/viviendas/_form.php",
-		"/var/www/html/condominio/views/cuentavivienda/_form.php",
 		"/var/www/html/condominio/web/css/site.css",
-		"/var/www/html/condominio/models/Pagosvivienda.php",
 		"/var/www/html/condominio/messages/es/user.php",
 		"/var/www/html/condominio/messages/es/yii.php",
 		"/var/www/html/condominio/models/Directiva.php",
@@ -509,7 +530,6 @@
 		"/var/www/html/condominio/models/Saldosiniciales.php",
 		"/var/www/html/condominio/views/personas/index.php",
 		"/var/www/html/condominio/views/ingresosegresos/create.php",
-		"/var/www/html/condominio/views/ingresosegresos/_form.php",
 		"/var/www/html/condominio/models/Ingresosegresos.php",
 		"/var/www/html/condominio/controllers/SaldosmensualesController.php",
 		"/var/www/html/condominio/models/IngresosegresosQuery.php",
@@ -518,7 +538,6 @@
 		"/var/www/html/condominio/views/recibos/index.php",
 		"/var/www/html/condominio/web/css/otrosestilos.css",
 		"/var/www/html/condominio/views/personas/_form.php",
-		"/var/www/html/condominio/messages/es/app.php",
 		"/var/www/html/condominio/vendor/dektrium/yii2-user/messages/es/user.php",
 		"/var/www/html/condominio/vendor/yiisoft/yii2/messages/es/user.php",
 		"/var/www/html/condominio/views/viviendas/update.php",
@@ -540,7 +559,6 @@
 		"/var/www/html/condominio/config/i18n.php",
 		"/var/www/html/condominio/vendor/dektrium/yii2-user/widgets/views/login.php",
 		"/var/www/html/condominio/vendor/yiisoft/yii2/base/Application.php",
-		"/var/www/html/condominio/config/params.php",
 		"/var/www/html/condominio/models/LoginForm.php",
 		"/var/www/html/condominio/models/Autos.php",
 		"/var/www/html/condominio/views/autos/_form.php",
@@ -563,7 +581,7 @@
 	],
 	"find":
 	{
-		"height": 26.0
+		"height": 39.0
 	},
 	"find_in_files":
 	{
@@ -580,6 +598,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"modelCuentavPagosvNuevo",
 			"Pagos por Servicios",
 			"viviendas_id",
 			"vivien",
@@ -617,180 +636,25 @@
 			[
 				{
 					"buffer": 0,
-					"file": "views/ingresosegresos/_form.php",
+					"file": "views/cuentavivienda/_form_update.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11871,
+						"buffer_size": 8043,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								11871,
-								11871
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3291.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "controllers/PagosviviendaController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9202,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3828,
-								3828
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 986.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "views/pagosvivienda/_form_update.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 15016,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								13060,
-								13060
+								7265,
+								7265
 							]
 						],
 						"settings":
 						{
 							"git_gutter_is_enabled": true,
 							"open_with_edit": true,
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4379.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "controllers/CuentaviviendaController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3561,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1627,
-								1627
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1037.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "models/Cuentavivienda.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3983,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1435,
-								1435
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 306.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "models/CuentaviviendaPagosvivienda.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2219,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								868,
-								868
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
 							"syntax": "Packages/PHP/PHP.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
@@ -803,20 +667,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "messages/es/app.php",
+					"buffer": 1,
+					"file": "controllers/PagosviviendaController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5207,
+						"buffer_size": 10665,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2852,
-								2852
+								8379,
+								8379
 							]
 						],
 						"settings":
@@ -827,10 +691,134 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1078.0,
+						"translation.y": 2958.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "models/CuentaviviendaPagosvivienda.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2380,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								974,
+								974
+							]
+						],
+						"settings":
+						{
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 357.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "views/pagosvivienda/_form_update.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16326,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16322,
+								16322
+							]
+						],
+						"settings":
+						{
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4275.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "controllers/CuentaviviendaController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3639,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2376,
+								2376
+							]
+						],
+						"settings":
+						{
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 748.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "models/Cuentavivienda.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4083,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3044,
+								3044
+							]
+						],
+						"settings":
+						{
+							"git_gutter_is_enabled": true,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 153.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -869,7 +857,7 @@
 		"cols":
 		[
 			0.0,
-			0.854325920092,
+			0.940507636023,
 			1.0
 		],
 		"rows":

@@ -65,6 +65,7 @@ class CuentaviviendaController extends Controller
     public function actionCreate()
     {
         $model = new Cuentavivienda();
+        //$modelObligaciones = 
 
         // if ($model->load(Yii::$app->request->post())){
         //     print_r($model);
@@ -91,6 +92,8 @@ class CuentaviviendaController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        // print_r($model->cuentaviviendaPagosviviendas);
+        // die();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

@@ -49,7 +49,7 @@ class Cuentavivienda extends \yii\db\ActiveRecord
     {
         return [
             [['viviendas_id', 'descripcion', 'mes', 'anio', 'monto'], 'required'],
-            [['viviendas_id', 'tipoobligaciones_id', 'mes', 'anio'], 'integer'],
+            [['viviendas_id', 'tipoobligaciones_id', 'mes', 'anio', 'cerrada'], 'integer'],
             [['monto', 'monto_faltante'], 'number'],
             [['fecha_vencimiento'], 'safe'],
             [['descripcion'], 'string', 'max' => 250],
@@ -75,6 +75,7 @@ class Cuentavivienda extends \yii\db\ActiveRecord
             'fecha_vencimiento' => Yii::t('app', 'Fecha Vencimiento'),
             'monto_faltante' => Yii::t('app', 'Monto Faltante'),
             'montoapagar' => Yii::t('app', 'Monto A Pagar'),
+            'cerrada' => Yii::t('app', 'Cerrada'),
         ];
     }
 

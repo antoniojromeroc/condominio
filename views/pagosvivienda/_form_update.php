@@ -349,28 +349,28 @@ $colorCampos = "#E7E6EE";
 // print_r($modelCuentavPagosv);
 
 
-$script = <<< JS
+// $script = <<< JS
        
-        $('form#{relacion}').on('beforeSubmit', function(e)
-        {
-            $("#enviarNuevo").on('click', function(event){
-            //if(document.getElementById("movimientos-accion").value == "guardar") {
-                var \$form = $(this);
-                $.post(
-                    \$form.attr("action"), // serialize Yii2 form
-                    \$form.serialize()
-                )
-                    .done(function(result) {
-                        console.log(result);
-                        //console.log("Pasa");
-                    }).fail(function()
-                        {
-                            console.log("server error");
-                        });
-                    return false;
-            });
-        });
-JS;
-$this->registerJs($script);
+//         $('form#{relacion}').on('beforeSubmit', function(e)
+//         {
+//             $("#enviarNuevo").on('click', function(event){
+//             //if(document.getElementById("movimientos-accion").value == "guardar") {
+//                 var \$form = $(this);
+//                 $.post(
+//                     \$form.attr("action"), // serialize Yii2 form
+//                     \$form.serialize()
+//                 )
+//                     .done(function(result) {
+//                         console.log(result);
+//                         //console.log("Pasa");
+//                     }).fail(function()
+//                         {
+//                             console.log("server error");
+//                         });
+//                     return false;
+//             });
+//         });
+// JS;
+// $this->registerJs($script);
 
 ?>

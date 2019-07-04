@@ -98,7 +98,38 @@ $colorCampos = "#E7E6EE";
                 <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">
                 <?= $form->field($model, 'cerrada')->checkbox() ?>
                 </div>
+
                 <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1"></div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-4 bg-primary" style="font-size: 18px">
+                    <center>Banco</center>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2 bg-primary" style="font-size: 18px">
+                    <center># Operación</center>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-4 bg-primary" style="font-size: 18px">
+                    <center>Monto</center>
+                </div>
+                <!-- <div class="col-xs-12 col-sm-8 col-md-9 col-lg-8"> -->
+                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>
+                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1"></div>
+                    <!-- <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>
+                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1"></div> -->
+                <?php 
+                    foreach($model->cuentaviviendaPagosviviendas as $vinculacion)
+                    {
+                        echo '<div class="col-xs-12 col-sm-8 col-md-9 col-lg-4" style="font-size: 12px">';
+                        echo '<center>'.$vinculacion->pagosvivienda->bancoreceptor->nombre.'</center>';
+                        echo '</div><div class="col-xs-12 col-sm-8 col-md-9 col-lg-2" style="font-size: 18px">';
+                        echo '<center>'.$vinculacion->pagosvivienda->num_operacion.'</center>';
+                        echo '</div><div class="col-xs-12 col-sm-8 col-md-9 col-lg-4" style="font-size: 18px">';
+                        echo '<center>'.$vinculacion->montopagado.'</center>';
+                        echo '</div>';
+                    }
+
+                ?>
+                
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>
                 <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10"></div>
                 <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">
                     <div class="form-group">
@@ -112,4 +143,3 @@ $colorCampos = "#E7E6EE";
         <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br><br></div>
     </div>
 </div>
-

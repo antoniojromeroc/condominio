@@ -88,7 +88,10 @@ class PagosviviendaController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelCuentav = Cuentavivienda::find()->where(['viviendas_id' => $model->viviendas_id])->all();
+        $modelCuentav = Cuentavivienda::find()
+            ->where(['viviendas_id' => $model->viviendas_id])
+            ->andwhere(['cerrada' => 0])
+            ->all();
         $modelCuentavPagosv = CuentaviviendaPagosvivienda::find()->where(['pagosvivienda_id' => $model->id])->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -112,84 +115,108 @@ class PagosviviendaController extends Controller
         $montofaltante=0;
         $montoaporte=0;
         $model = $this->findModel($id);
-        $modelCuentav = Cuentavivienda::find()->where(['viviendas_id' => $model->viviendas_id])->all();
+        $modelCuentav = Cuentavivienda::find()
+            ->where(['viviendas_id' => $model->viviendas_id])
+            ->andwhere(['cerrada' => 0])
+            ->all();
         $modelCuentavPagosvNuevo = new CuentaviviendaPagosvivienda();
 
         if(Yii::$app->request->post()) {
-            $recibido = Yii::$app->request->post();
-            $idObligacion=$recibido['Cuentavivienda']['idObligacion']; 
-            $relacionar=$recibido['Cuentavivienda'][$idObligacion]['relacionar']; 
-            $modelCuentavPagosvUnico = CuentaviviendaPagosvivienda::find()->
-                    where([
-                        'cuentavivienda_id' => $idObligacion,
-                        'pagosvivienda_id' => $model->id
-                    ])->one();
-            if($relacionar)
+            //$enviado = Yii::$app->request->post('Cuentavivienda');
+            $recibido = Yii::$app->request->post('Cuentavivienda');
+            $t_items = sizeof($recibido);
+            $t_items = $t_items - 1;
+            $contador = 0;
+            // print_r($enviado);
+            // var_dump($t_items);
+            // print($t_items);
+            // die();
+            $Pagosvivienda_ = Yii::$app->request->post('Pagosvivienda');
+            while ($idObligacion < $t_items)
             {
-                // $montooperacion >> Se refiere al monto pagado en la operacion bancaria registrada en este id de Pagosvivienda
-                $montodeoperacion=$recibido['Pagosvivienda'][$idObligacion]['monto']; 
-                // $montopagado >> Corresponde a la suma de todos las pagos relacionados con esta obligacion
-                //$montopagado=$recibido['Cuentavivienda'][$id]['montopagado'];
-                // $montofaltante >> Lo que falta para completar la obligacion
-                $montofaltante=$recibido['Cuentavivienda'][$idObligacion]['montofaltante'];
-                // $montoaporte >> Lo que indique que va a abonar o aportar a la obligacion
-                $montoaporte=$recibido['Cuentavivienda'][$idObligacion]['montoapagar'];
-                if($montoaporte <= 0){
-                    Yii::$app->session->setFlash('error', 'Alerta. El monto a abonar no puede ser Cero (0) o inferior...'); 
-                    $modelCuentavPagosv = CuentaviviendaPagosvivienda::find()->where(['pagosvivienda_id' => $model->id])->all();
-                    return $this->render('update', [
-                            'model' => $model,
-                            'modelCuentav' => $modelCuentav,
-                            'modelCuentavPagosv' => $modelCuentavPagosv,
-                        ]);
-                }
-                if($montoaporte > $montodeoperacion){
-                    Yii::$app->session->setFlash('error', 'Alerta. El monto a abonar no puede superar el monto del pago registrado arriba...'); 
-                    $modelCuentavPagosv = CuentaviviendaPagosvivienda::find()->where(['pagosvivienda_id' => $model->id])->all();
-                    return $this->render('update', [
-                            'model' => $model,
-                            'modelCuentav' => $modelCuentav,
-                            'modelCuentavPagosv' => $modelCuentavPagosv,
-                        ]);
-                }
-                if($montoaporte > $montofaltante){
-                    Yii::$app->session->setFlash('error', 'Alerta. El monto a abonar no puede superar el monto faltante de la Obligacion...'); 
-                    $modelCuentavPagosv = CuentaviviendaPagosvivienda::find()->where(['pagosvivienda_id' => $model->id])->all();
-                    return $this->render('update', [
-                            'model' => $model,
-                            'modelCuentav' => $modelCuentav,
-                            'modelCuentavPagosv' => $modelCuentavPagosv,
-                        ]);
-                }
-                if($modelCuentavPagosvUnico)
+            //foreach ($enviado as $recibido) {
+                $idObligacion++;
+                # code...
+                //$idObligacion=$recibido['Cuentavivienda'][$idObligacion]; 
+                 // print_r($recibido);
+                 // die();
+                //$relacionar=$recibido['Cuentavivienda'][$idObligacion]['relacionar']; 
+                $relacionar=$recibido[$idObligacion]['relacionar']; 
+                $modelCuentavPagosvUnico = CuentaviviendaPagosvivienda::find()->
+                        where([
+                            'cuentavivienda_id' => $idObligacion,
+                            'pagosvivienda_id' => $model->id
+                        ])->one();
+                if($relacionar)
                 {
-                    $modelCuentavPagosvUnico->montopagado = $montoaporte;
-                    if($modelCuentavPagosvUnico->save())
-                    {
-                        Yii::$app->session->setFlash('success', 'Exito. Ha actualizado el monto exitosamente en este pago...');
-                    } else
-                    {
-                        Yii::$app->session->setFlash('warning', 'Advertencia. No se guardaron cambios en la BD...');
+                    // $montooperacion >> Se refiere al monto pagado en la operacion bancaria registrada en este id de Pagosvivienda
+                    //$montodeoperacion=$recibido['Pagosvivienda'][$idObligacion]['monto']; 
+                    $montodeoperacion=$Pagosvivienda_[$idObligacion]['monto']; 
+                    // $montopagado >> Corresponde a la suma de todos las pagos relacionados con esta obligacion
+                    // $montofaltante >> Lo que falta para completar la obligacion
+                    //$montofaltante=$recibido['Cuentavivienda'][$idObligacion]['montofaltante'];
+                    $montofaltante=$recibido[$idObligacion]['montofaltante'];
+                    // $montoaporte >> Lo que indique que va a abonar o aportar a la obligacion
+                    //$montoaporte=$recibido['Cuentavivienda'][$idObligacion]['montoapagar'];
+                    $montoaporte=$recibido[$idObligacion]['montoapagar'];
+                    if($montoaporte <= 0){
+                        Yii::$app->session->setFlash('error', 'Alerta. El monto a abonar no puede ser Cero (0) o inferior...'); 
+                        $modelCuentavPagosv = CuentaviviendaPagosvivienda::find()->where(['pagosvivienda_id' => $model->id])->all();
+                        return $this->render('update', [
+                                'model' => $model,
+                                'modelCuentav' => $modelCuentav,
+                                'modelCuentavPagosv' => $modelCuentavPagosv,
+                            ]);
                     }
-                } else 
+                    if($montoaporte > $montodeoperacion){
+                        Yii::$app->session->setFlash('error', 'Alerta. El monto a abonar no puede superar el monto del pago registrado arriba...'); 
+                        $modelCuentavPagosv = CuentaviviendaPagosvivienda::find()->where(['pagosvivienda_id' => $model->id])->all();
+                        return $this->render('update', [
+                                'model' => $model,
+                                'modelCuentav' => $modelCuentav,
+                                'modelCuentavPagosv' => $modelCuentavPagosv,
+                            ]);
+                    }
+                    if($montoaporte > $montofaltante){
+                        Yii::$app->session->setFlash('error', 'Alerta. El monto a abonar no puede superar el monto faltante de la Obligacion...'); 
+                        $modelCuentavPagosv = CuentaviviendaPagosvivienda::find()->where(['pagosvivienda_id' => $model->id])->all();
+                        return $this->render('update', [
+                                'model' => $model,
+                                'modelCuentav' => $modelCuentav,
+                                'modelCuentavPagosv' => $modelCuentavPagosv,
+                            ]);
+                    }
+                    if($modelCuentavPagosvUnico)
+                    {
+                        $modelCuentavPagosvUnico->montopagado = $montoaporte;
+                        if($modelCuentavPagosvUnico->save())
+                        {
+                            Yii::$app->session->setFlash('success', 'Exito. Ha actualizado el monto exitosamente en el Item: '.$idObligacion);
+                        } else
+                        {
+                            Yii::$app->session->setFlash('warning', 'Advertencia. No se guardaron cambios en la BD... Item: '.$idObligacion);
+                        }
+                    } else 
+                    {
+                        $modelCuentavPagosvNuevo->cuentavivienda_id = $idObligacion;
+                        $modelCuentavPagosvNuevo->pagosvivienda_id = $id;
+                        $modelCuentavPagosvNuevo->montopagado = $montoaporte;
+                        if($modelCuentavPagosvNuevo->save())
+                        {
+                            Yii::$app->session->setFlash('success', 'Exito. Ha relacionado exitosamente el pago de la Obligación Item: '. $idObligacion);
+                        } else
+                        {
+                            // print_r($modelCuentavPagosvNuevo->getErrors());
+                            // die();
+                            Yii::$app->session->setFlash('warning', 'Advertencia. No se guardaron cambios en la BD... Item: '.$idObligacion);
+                        }
+                    }                    
+                } else
                 {
-                    $modelCuentavPagosvNuevo->cuentavivienda_id = $idObligacion;
-                    $modelCuentavPagosvNuevo->pagosvivienda_id = $id;
-                    $modelCuentavPagosvNuevo->montopagado = $montoaporte;
-                    if($modelCuentavPagosvNuevo->save())
-                    {
-                        Yii::$app->session->setFlash('success', 'Exito. Ha relacionado exitosamente este pago con la Obligación marcada...');
-                    } else
-                    {
-                        Yii::$app->session->setFlash('warning', 'Advertencia. No se guardaron cambios en la BD...');
-                    }
-                }
-                
-            } else
-            {
-                $modelCuentavPagosvUnico->delete();
-                Yii::$app->session->setFlash('success', 'Exito. Ha desvinculado exitosamente este pago con la Obligación desmarcada...');
-            }   
+                    $modelCuentavPagosvUnico->delete();
+                    Yii::$app->session->setFlash('success', 'Exito. Ha desvinculado exitosamente este pago con la Obligación desmarcada...');
+                }   
+            }
             $modelCuentavPagosv = CuentaviviendaPagosvivienda::find()->where(['pagosvivienda_id' => $model->id])->all();
             return $this->render('update', [
                     'model' => $model,
