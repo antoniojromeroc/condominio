@@ -28,10 +28,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             // 'id',
-            'viviendas_id',
+            [
+                'attribute' => 'viviendas_id',
+                'value' => 'viviendas.numero',
+            ],
             'monto',
             'num_operacion',
-            'bancoemisor_id',
+            [
+                'attribute' => 'bancoemisor_id',
+                'value' => 'bancoemisor.nombre',
+            ],
+            //'bancoemisor_id',
             //'bancoreceptor_id',
             //'num_cuenta',
             //'nombre_depositante',

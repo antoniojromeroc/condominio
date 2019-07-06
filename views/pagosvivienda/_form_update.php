@@ -224,6 +224,11 @@ $colorCampos = "#E7E6EE";
     </div> -->
     <div class="table-responsive text-nowrap">
         <!--Table-->
+        DEBO MODIFICAR EN EL CONTROLADOR EL GUARDADO PARA QUITAR EL CIERRE EN CASO DE 
+        <BR>
+        QUE MODIFIQUEN EL MONTO Y QUEDE UN FALTANTE
+        <br>
+        Ya lo hace cuando destildan el item. Pero no lo he probado.
         <table class="table table-striped">
 
           <!--Table head-->
@@ -269,11 +274,13 @@ $colorCampos = "#E7E6EE";
                 $obligacion->montopagado = CuentaviviendaPagosvivienda::find()->where(['cuentavivienda_id' => $obligacion->id])->sum('montopagado');
                 $obligacion->montofaltante = $obligacion->monto - $obligacion->montopagado;
                 $obligacion->idObligacion = $obligacion->id;
+                $obligacion->montorestante = $montorestante;
                 echo '<div style="display:none">';
-                    echo $form->field($obligacion, "idObligacion")->textInput();
-                    echo $form->field($obligacion, "[$obligacion->id]montopagado")->textInput();
-                    echo $form->field($obligacion, "[$obligacion->id]montofaltante")->textInput();
-                    echo $form->field($model, "[$obligacion->id]monto")->textInput();
+                    echo $form->field($obligacion, "[$posicion]idObligacion")->textInput();
+                    echo $form->field($obligacion, "[$posicion][$obligacion->id]montopagado")->textInput();
+                    echo $form->field($obligacion, "[$posicion][$obligacion->id]montofaltante")->textInput();
+                    echo $form->field($obligacion, "[$posicion][$obligacion->id]montorestante")->textInput();
+                    echo $form->field($model, "[$posicion][$obligacion->id]monto")->textInput();
                 echo '</div>';
                 ?>
                 <tr>
@@ -283,8 +290,8 @@ $colorCampos = "#E7E6EE";
                   <td><?= $obligacion->monto; ?></td>
                   <td><?= $obligacion->montopagado; ?></td>
                   <td><?= number_format($obligacion->montofaltante,2) ?></td>
-                  <td><?= $form->field($obligacion, "[$obligacion->id]montoapagar")->textInput()->label(false); ?></td>
-                  <td><?= $form->field($obligacion, "[$obligacion->id]relacionar")->checkbox(['label' => false]); ?></td>
+                  <td><?= $form->field($obligacion, "[$posicion][$obligacion->id]montoapagar")->textInput()->label(false); ?></td>
+                  <td><?= $form->field($obligacion, "[$posicion][$obligacion->id]relacionar")->checkbox(['label' => false]); ?></td>
                 </tr>
             <?php
             }

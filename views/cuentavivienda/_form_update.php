@@ -111,13 +111,15 @@ $colorCampos = "#E7E6EE";
                     <center>Monto</center>
                 </div>
                 <!-- <div class="col-xs-12 col-sm-8 col-md-9 col-lg-8"> -->
-                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>
-                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1"></div>
+<!--                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>
+                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1"></div>-->
                     <!-- <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>
                     <div class="col-xs-12 col-sm-8 col-md-9 col-lg-1"></div> -->
                 <?php 
                     foreach($model->cuentaviviendaPagosviviendas as $vinculacion)
                     {
+                        echo '<div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>';
+                        echo '<div class="col-xs-12 col-sm-8 col-md-9 col-lg-1"></div>';
                         echo '<div class="col-xs-12 col-sm-8 col-md-9 col-lg-4" style="font-size: 12px">';
                         echo '<center>'.$vinculacion->pagosvivienda->bancoreceptor->nombre.'</center>';
                         echo '</div><div class="col-xs-12 col-sm-8 col-md-9 col-lg-2" style="font-size: 18px">';
@@ -133,7 +135,10 @@ $colorCampos = "#E7E6EE";
                 <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10"></div>
                 <div class="col-xs-12 col-sm-8 col-md-9 col-lg-2">
                     <div class="form-group">
+                        <?php
+                        if($model->cerrada == 0){ ?>
                         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-8 col-md-9 col-lg-12"><br></div>
