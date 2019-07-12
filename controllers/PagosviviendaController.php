@@ -138,6 +138,7 @@ class PagosviviendaController extends Controller
             //foreach ($enviado as $recibido) {
 //                $idObligacion++;
                 $contador++;
+                $montopagagadoAnt = 0;
                 # code...
 //                $idObligacion=$recibido['Cuentavivienda'][$contador][$idObligacion]; 
                 $idObligacion=$recibido[$contador]['idObligacion']; 
@@ -164,6 +165,7 @@ class PagosviviendaController extends Controller
                     // $montorestante >> Cantidad de dinero que queda de la operación bancaria
                     if($modelCuentavPagosvUnico)
                     {
+                        $montopagagadoAnt = $modelCuentavPagosvUnico->montopagado;
                         $montorestante=$recibido[$contador][$t_items]['montorestante'] 
                                 + $modelCuentavPagosvUnico->montopagado;
                     } else {
@@ -192,6 +194,7 @@ class PagosviviendaController extends Controller
                                 'modelCuentavPagosv' => $modelCuentavPagosv,
                             ]);
                     }
+                    $montofaltante = $montofaltante + $montopagagadoAnt;
                     if($montoaporte > $montofaltante){
                         Yii::$app->session->setFlash('error', 'Alerta. El monto a abonar no puede superar el monto faltante de la Obligacion...'); 
                         $modelCuentavPagosv = CuentaviviendaPagosvivienda::find()->where(['pagosvivienda_id' => $model->id])->all();
@@ -220,6 +223,14 @@ class PagosviviendaController extends Controller
                                 $modelCuentavA = Cuentavivienda::find()->where(['id' => $modelCuentavPagosvUnico->cuentavivienda_id])->one();
                                 $modelCuentavA->cerrada = 1;
                                 $modelCuentavA->save();
+                            } else {
+                                if($montoaporte < $montopagagadoAnt)
+                                {
+                                    $modelCuentavA = Cuentavivienda::find()->where(['id' => $modelCuentavPagosvUnico->cuentavivienda_id])->one();
+                                    $modelCuentavA->cerrada = 0;
+                                    $modelCuentavA->save();
+                                    Yii::$app->session->setFlash('warning', 'Advertencia. Con esta acción cambio estatus de Cerrado a Abierto para la cuenta... Item: '.$contador);
+                                }
                             }
                             Yii::$app->session->setFlash('success', 'Exito. Ha actualizado el monto exitosamente en el Item: '.$contador);
                         } else

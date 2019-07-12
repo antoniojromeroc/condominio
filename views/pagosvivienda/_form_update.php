@@ -224,11 +224,6 @@ $colorCampos = "#E7E6EE";
     </div> -->
     <div class="table-responsive text-nowrap">
         <!--Table-->
-        DEBO MODIFICAR EN EL CONTROLADOR EL GUARDADO PARA QUITAR EL CIERRE EN CASO DE 
-        <BR>
-        QUE MODIFIQUEN EL MONTO Y QUEDE UN FALTANTE
-        <br>
-        Ya lo hace cuando destildan el item. Pero no lo he probado.
         <table class="table table-striped">
 
           <!--Table head-->
